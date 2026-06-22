@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import Team3.entities.PuntoDiEmissione;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PuntoDiEmissioneDao {
 
@@ -19,7 +20,7 @@ public class PuntoDiEmissioneDao {
         em.getTransaction().commit();
     }
 
-    public PuntoDiEmissione findById(Long id) {
+    public PuntoDiEmissione findById(UUID id) {
         return em.find(PuntoDiEmissione.class, id);
     }
 
@@ -33,7 +34,7 @@ public class PuntoDiEmissioneDao {
         em.getTransaction().commit();
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         em.getTransaction().begin();
         PuntoDiEmissione p = em.find(PuntoDiEmissione.class, id);
         if (p != null) {

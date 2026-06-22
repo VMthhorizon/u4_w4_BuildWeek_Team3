@@ -8,6 +8,7 @@
         <class>Team3.entities.Biglietto</class>
         <class>Team3.entities.PuntoDiEmissione</class>
         <class>Team3.entities.Distributore</class>
+        <class>Team3.entities.Rivenditore</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url"
