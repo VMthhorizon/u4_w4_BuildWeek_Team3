@@ -19,7 +19,7 @@ public class StoricoMezzo {
     private StatoMezzo stato;
     @Column(name = "data_inizio", nullable = false)
     private LocalDate dataInizio;
-    @Column(name = "data_fine", nullable = false)
+    @Column(name = "data_fine")
     private LocalDate dataFine;
 
     protected StoricoMezzo() {

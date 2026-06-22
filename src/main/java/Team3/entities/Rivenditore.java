@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 @DiscriminatorValue("rivenditori")
 public class Rivenditore extends PuntoDiEmissione {
 
-    @Column(name = "is_Open")
-    private Boolean isOpen;
+    @Column(name = "descrizione")
+    private String descrizione;
 
     // Costruttore vuoto
 
@@ -17,18 +17,19 @@ public class Rivenditore extends PuntoDiEmissione {
 
     // Costruttore con parametri
 
-    public Rivenditore(String nome, Boolean isOpen) {
+    public Rivenditore(String nome, String descrizione) {
         super(nome);
-        this.isOpen = isOpen;
+        this.descrizione = descrizione;
     }
 
     // Getter e Setter
 
-    public Boolean getIsOpen() {
-        return isOpen;
+
+    public String getDescrizione() {
+        return descrizione;
     }
 
-    public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 }

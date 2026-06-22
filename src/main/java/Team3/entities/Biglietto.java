@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Biglietto extends TitoloViaggio {
     @Column(name = "is_valido", nullable = false)
     private boolean isValido;
-    @Column(name = "data_di_utilizzo", nullable = false)
+    @Column(name = "data_di_utilizzo")
     private LocalDate dataDiUtilizzo;
 
     @ManyToOne
