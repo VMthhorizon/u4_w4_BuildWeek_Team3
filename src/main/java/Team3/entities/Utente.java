@@ -14,8 +14,10 @@ public class Utente {
     private String nome;
     private String cognome;
 
-    @OneToOne(mappedBy = "utente")
+    @OneToOne
+    @JoinColumn(name = "id_tessera", unique = true, nullable = false)
     private Tessera tessera;
+
 
     // COSTRUTTORE VUOTO
     protected Utente() {
@@ -26,6 +28,7 @@ public class Utente {
     public Utente(String nome, String cognome, Tessera tessera) {
         this.nome = nome;
         this.cognome = cognome;
+        this.tessera = tessera;
     }
 
     // GETTER

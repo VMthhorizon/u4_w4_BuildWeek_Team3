@@ -18,20 +18,15 @@ public class Tessera {
     @Column(name = "data_scadenza", nullable = false)
     private LocalDate dataScadenza;
 
-    @OneToOne
-    @JoinColumn(name = "id_utente", unique = true, nullable = false)
-    private Utente utente;
-
     // COSTRUTTORE VUOTO
     protected Tessera() {
 
     }
 
     // COSTRUTTORE
-    protected Tessera(LocalDate dataEmissione, Utente utente) {
+    public Tessera(LocalDate dataEmissione) {
         this.dataEmissione = dataEmissione;
         this.dataScadenza = dataEmissione.plusYears(1);
-        this.utente = utente;
     }
 
     // GETTER
@@ -45,7 +40,6 @@ public class Tessera {
                 "id=" + id +
                 ", dataEmissione=" + dataEmissione +
                 ", dataScadenza=" + dataScadenza +
-                ", utente=" + utente.getId() +
                 '}';
     }
 }
