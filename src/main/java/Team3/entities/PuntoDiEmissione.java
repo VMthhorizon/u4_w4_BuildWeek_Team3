@@ -2,6 +2,9 @@ package Team3.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @Entity
 @Table(name = "punti_di_emissione")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -10,7 +13,7 @@ public abstract class PuntoDiEmissione {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @Column(name = "nome")
     private String nome;
@@ -28,11 +31,11 @@ public abstract class PuntoDiEmissione {
 
     // Getter e Setter
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
