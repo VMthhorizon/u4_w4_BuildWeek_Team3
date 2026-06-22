@@ -2,6 +2,8 @@ package Team3.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "punti_di_emissione")
 @Inheritance(strategy = InheritanceType.JOINED)
