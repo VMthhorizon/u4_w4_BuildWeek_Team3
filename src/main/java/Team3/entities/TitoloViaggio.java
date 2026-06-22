@@ -25,4 +25,25 @@ public abstract class TitoloViaggio {
         this.dataEmissione = dataEmissione;
         this.emissioneId = emissioneId;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public LocalDate getDataEmissione() {
+        return dataEmissione;
+    }
+
+    public UUID getEmissioneId() {
+        return emissioneId;
+    }
+
+    @Override
+    public String toString() {
+        return "TitoloViaggio{" +
+                "id=" + id +
+                ", dataEmissione=" + dataEmissione +
+                ", emissioneId=" + emissioneId +
+                '}';
+    }
 }
