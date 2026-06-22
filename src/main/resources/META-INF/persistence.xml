@@ -6,6 +6,8 @@
         <class>Team3.entities.TitoloViaggio</class>
         <class>Team3.entities.Abbonamento</class>
         <class>Team3.entities.Biglietto</class>
+        <class>Team3.entities.Utente</class>
+        <class>Team3.entities.Tessera</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/u4_buildweek"/>
