@@ -12,7 +12,7 @@ import java.util.UUID;
 public abstract class PuntoDiEmissione {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private UUID id;
 
     @Column(name = "nome")
