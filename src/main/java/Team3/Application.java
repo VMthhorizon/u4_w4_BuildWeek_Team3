@@ -20,7 +20,7 @@ public class Application {
         Tram Tram1 = new Tram(StatoMezzo.SERVIZIO, 80);
         Autobus Bus1 = new Autobus(StatoMezzo.MANUTENZIONE, 200);
 
-        mezzoDao.saveMezzo(Tram1);
-        mezzoDao.saveMezzo(Bus1);
+//        mezzoDao.saveMezzo(Tram1);
+//        mezzoDao.saveMezzo(Bus1);
     }
 }

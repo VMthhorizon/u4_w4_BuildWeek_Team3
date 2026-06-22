@@ -7,6 +7,8 @@
         <class>Team3.entities.Tram</class>
         <class>Team3.entities.Autobus</class>
         <class>Team3.entities.Percorrenza</class>
+        <class>Team3.entities.StoricoMezzo</class>
+        <class>Team3.entities.Tratta</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/u4_buildweek"/>
