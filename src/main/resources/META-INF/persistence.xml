@@ -9,6 +9,9 @@
         <class>Team3.entities.Percorrenza</class>
         <class>Team3.entities.StoricoMezzo</class>
         <class>Team3.entities.Tratta</class>
+        <class>Team3.entities.TitoloViaggio</class>
+        <class>Team3.entities.Abbonamento</class>
+        <class>Team3.entities.Biglietto</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/u4_buildweek"/>
