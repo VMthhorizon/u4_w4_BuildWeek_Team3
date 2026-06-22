@@ -24,4 +24,20 @@ public class Abbonamento extends TitoloViaggio {
         this.tipo = tipo;
         this.idTessera = idTessera;
     }
+
+    public TipoAbbonamento getTipo() {
+        return tipo;
+    }
+
+    public UUID getIdTessera() {
+        return idTessera;
+    }
+
+    @Override
+    public String toString() {
+        return "Abbonamento{" +
+                "tipo=" + tipo +
+                ", idTessera=" + idTessera +
+                '}';
+    }
 }

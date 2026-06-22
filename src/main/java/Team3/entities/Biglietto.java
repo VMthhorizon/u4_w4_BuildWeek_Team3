@@ -29,4 +29,25 @@ public class Biglietto extends TitoloViaggio {
         this.dataDiUtilizzo = dataDiUtilizzo;
         this.idMezzo = idMezzo;
     }
+
+    public boolean GetIsValido() {
+        return isValido;
+    }
+
+    public LocalDate getDataDiUtilizzo() {
+        return dataDiUtilizzo;
+    }
+
+    public UUID getIdMezzo() {
+        return idMezzo;
+    }
+
+    @Override
+    public String toString() {
+        return "Biglietto{" +
+                "isValido=" + isValido +
+                ", dataDiUtilizzo=" + dataDiUtilizzo +
+                ", idMezzo=" + idMezzo +
+                '}';
+    }
 }
