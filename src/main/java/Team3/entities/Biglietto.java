@@ -1,9 +1,6 @@
 package Team3.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -17,17 +14,21 @@ public class Biglietto extends TitoloViaggio {
     private boolean isValido;
     @Column(name = "data_di_utilizzo", nullable = false)
     private LocalDate dataDiUtilizzo;
-    @Column(name = "id_mezzo", nullable = false)
-    private UUID idMezzo; // ------------- AGGIORNARE CON CLASSE ---------------------
+
+    @ManyToOne
+    @JoinColumn(name = "id_mezzo", nullable = false)
+    private MezzoDiTrasporto mezzoDiTrasporto;
 
     protected Biglietto() {
     }
 
-    public Biglietto(LocalDate dataEmissione, UUID emissioneId, boolean isValido, LocalDate dataDiUtilizzo, UUID idMezzo) {
-        super(dataEmissione, emissioneId);
+    public Biglietto(LocalDate dataEmissione, PuntoDiEmissione puntoDiEmissione, boolean isValido,
+                     LocalDate dataDiUtilizzo,
+                     MezzoDiTrasporto mezzoDiTrasporto) {
+        super(dataEmissione, puntoDiEmissione);
         this.isValido = isValido;
         this.dataDiUtilizzo = dataDiUtilizzo;
-        this.idMezzo = idMezzo;
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
     }
 
     public boolean GetIsValido() {
@@ -38,8 +39,9 @@ public class Biglietto extends TitoloViaggio {
         return dataDiUtilizzo;
     }
 
-    public UUID getIdMezzo() {
-        return idMezzo;
+    @Override
+    public PuntoDiEmissione getPuntoDiEmissione() {
+        return super.getPuntoDiEmissione();
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Biglietto extends TitoloViaggio {
         return "Biglietto{" +
                 "isValido=" + isValido +
                 ", dataDiUtilizzo=" + dataDiUtilizzo +
-                ", idMezzo=" + idMezzo +
-                '}';
+                ", mezzoDiTrasporto=" + mezzoDiTrasporto +
+                "} " + super.toString();
     }
 }

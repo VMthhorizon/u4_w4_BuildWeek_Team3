@@ -6,38 +6,39 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Percorrenze")
+@Table(name = "percorrenze")
 public class Percorrenza {
     @Id
     @GeneratedValue
-    private UUID id_percorrenza;
+    private UUID idPercorrenza;
     @ManyToOne
     @JoinColumn(name = "id_tratta")
-    private Tratta id_tratta;
+    private Tratta tratta;
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
-    private MezzoDiTrasporto id_mezzo;
-    private int tempo_effettivo;
-    private LocalDate data_percorrenza;
+    private MezzoDiTrasporto mezzoDiTrasporto;
+    private int tempoEffettivo;
+    private LocalDate dataPercorrenza;
 
     protected Percorrenza() {
     }
 
-    public Percorrenza(Tratta id_tratta, MezzoDiTrasporto id_mezzo, int tempo_effettivo, LocalDate data_percorrenza) {
-        this.id_tratta = id_tratta;
-        this.id_mezzo = id_mezzo;
-        this.tempo_effettivo = tempo_effettivo;
-        this.data_percorrenza = data_percorrenza;
+    public Percorrenza(Tratta tratta, MezzoDiTrasporto mezzoDiTrasporto, int tempoEffettivo,
+                       LocalDate dataPercorrenza) {
+        this.tratta = tratta;
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
+        this.tempoEffettivo = tempoEffettivo;
+        this.dataPercorrenza = dataPercorrenza;
     }
 
     @Override
     public String toString() {
         return "Percorrenza{" +
-                "id_percorrenza=" + id_percorrenza +
-                ", id_tratta=" + id_tratta +
-                ", id_mezzo=" + id_mezzo +
-                ", tempo_effettivo=" + tempo_effettivo +
-                ", data_percorrenza=" + data_percorrenza +
+                "idPercorrenza=" + idPercorrenza +
+                ", tratta=" + tratta +
+                ", mezzoDiTrasporto=" + mezzoDiTrasporto +
+                ", tempoEffettivo=" + tempoEffettivo +
+                ", dataPercorrenza=" + dataPercorrenza +
                 '}';
     }
 }

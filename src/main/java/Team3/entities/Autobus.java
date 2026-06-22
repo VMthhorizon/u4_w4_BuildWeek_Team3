@@ -1,7 +1,6 @@
 package Team3.entities;
 
 import Team3.enums.StatoMezzo;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity

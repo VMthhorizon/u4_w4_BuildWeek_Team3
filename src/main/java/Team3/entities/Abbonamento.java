@@ -13,31 +13,33 @@ public class Abbonamento extends TitoloViaggio {
     @Column(name = "tipo", nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoAbbonamento tipo;
-    @Column(name = "id_tessera", nullable = false)
-    private UUID idTessera; // ------------ DA AGGIORNARE CON LA CLASSE -----------------
+    @ManyToOne
+    @JoinColumn(name = "id_tessera", nullable = false)
+    private Tessera tessera;
 
     protected Abbonamento() {
     }
 
-    public Abbonamento(LocalDate dataEmissione, UUID emissioneId, TipoAbbonamento tipo, UUID idTessera) {
-        super(dataEmissione, emissioneId);
+    public Abbonamento(LocalDate dataEmissione, PuntoDiEmissione puntoDiEmissione, TipoAbbonamento tipo,
+                       Tessera tessera) {
+        super(dataEmissione, puntoDiEmissione);
         this.tipo = tipo;
-        this.idTessera = idTessera;
+        this.tessera = tessera;
     }
 
     public TipoAbbonamento getTipo() {
         return tipo;
     }
 
-    public UUID getIdTessera() {
-        return idTessera;
+    public Tessera getTessera() {
+        return tessera;
     }
 
     @Override
     public String toString() {
         return "Abbonamento{" +
                 "tipo=" + tipo +
-                ", idTessera=" + idTessera +
-                '}';
+                ", tessera=" + tessera +
+                "} " + super.toString();
     }
 }

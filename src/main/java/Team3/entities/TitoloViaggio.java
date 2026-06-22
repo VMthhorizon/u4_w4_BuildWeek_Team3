@@ -15,15 +15,16 @@ public abstract class TitoloViaggio {
     private UUID id;
     @Column(name = "data_emissione", nullable = false)
     private LocalDate dataEmissione;
-    @Column(name = "emissione_id", nullable = false)
-    private UUID emissioneId; // ------------------ DA SOSTITUIRE CON LA CLASSE --------------------
+    @ManyToOne
+    @JoinColumn(name = "emissione_id", nullable = false)
+    private PuntoDiEmissione puntoDiEmissione;
 
     protected TitoloViaggio() {
     }
 
-    public TitoloViaggio(LocalDate dataEmissione, UUID emissioneId) {
+    public TitoloViaggio(LocalDate dataEmissione, PuntoDiEmissione puntoDiEmissione) {
         this.dataEmissione = dataEmissione;
-        this.emissioneId = emissioneId;
+        this.puntoDiEmissione = puntoDiEmissione;
     }
 
     public UUID getId() {
@@ -34,8 +35,8 @@ public abstract class TitoloViaggio {
         return dataEmissione;
     }
 
-    public UUID getEmissioneId() {
-        return emissioneId;
+    public PuntoDiEmissione getPuntoDiEmissione() {
+        return puntoDiEmissione;
     }
 
     @Override
@@ -43,7 +44,7 @@ public abstract class TitoloViaggio {
         return "TitoloViaggio{" +
                 "id=" + id +
                 ", dataEmissione=" + dataEmissione +
-                ", emissioneId=" + emissioneId +
+                ", puntoDiEmissione=" + puntoDiEmissione +
                 '}';
     }
 }

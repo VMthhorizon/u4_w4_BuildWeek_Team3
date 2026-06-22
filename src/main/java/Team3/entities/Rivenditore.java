@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rivenditori")
-@DiscriminatorValue("RIVENDITORE")
+@DiscriminatorValue("rivenditori")
 public class Rivenditore extends PuntoDiEmissione {
 
-    @Column(name = "isOpen")
+    @Column(name = "is_Open")
     private Boolean isOpen;
 
     // Costruttore vuoto

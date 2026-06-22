@@ -7,12 +7,13 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "MezziDiTrasporto")
+@DiscriminatorValue("mezzo")
+@Table(name = "mezzi_di_trasporto")
 public abstract class MezzoDiTrasporto {
     @Id
     @GeneratedValue
     private UUID id_mezzo;
-    @JoinColumn(name = "stato_mezzo")
+    @Column(name = "stato_mezzo")
     @Enumerated(EnumType.STRING)
     private StatoMezzo stato;
     private int capienza;
@@ -23,6 +24,10 @@ public abstract class MezzoDiTrasporto {
     public MezzoDiTrasporto(StatoMezzo stato, int capienza) {
         this.stato = stato;
         this.capienza = capienza;
+    }
+
+    public StatoMezzo getStato() {
+        return stato;
     }
 
     @Override

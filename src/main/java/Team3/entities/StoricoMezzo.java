@@ -7,37 +7,39 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Storico_mezzi")
+@Table(name = "storico_mezzi")
 public class StoricoMezzo {
     @Id
     @GeneratedValue
-    private UUID id_storico;
+    private UUID idStorico;
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
-    private MezzoDiTrasporto id_mezzo;
+    private MezzoDiTrasporto mezzoDiTrasporto;
     @Enumerated(EnumType.STRING)
     private StatoMezzo stato;
-    private LocalDate data_inizio;
-    private LocalDate data_fine;
+    @Column(name = "data_inizio", nullable = false)
+    private LocalDate dataInizio;
+    @Column(name = "data_fine", nullable = false)
+    private LocalDate dataFine;
 
     protected StoricoMezzo() {
     }
 
-    public StoricoMezzo(MezzoDiTrasporto id_mezzo, StatoMezzo stato, LocalDate data_inizio, LocalDate data_fine) {
-        this.id_mezzo = id_mezzo;
-        this.stato = stato;
-        this.data_inizio = data_inizio;
-        this.data_fine = data_fine;
+    public StoricoMezzo(MezzoDiTrasporto mezzoDiTrasporto, LocalDate dataInizio, LocalDate dataFine) {
+        this.mezzoDiTrasporto = mezzoDiTrasporto;
+        this.stato = mezzoDiTrasporto.getStato();
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
     }
 
     @Override
     public String toString() {
         return "StoricoMezzo{" +
-                "id_storico=" + id_storico +
-                ", id_mezzo=" + id_mezzo +
+                "idStorico=" + idStorico +
+                ", mezzoDiTrasporto=" + mezzoDiTrasporto +
                 ", stato=" + stato +
-                ", data_inizio=" + data_inizio +
-                ", data_fine=" + data_fine +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine +
                 '}';
     }
 }

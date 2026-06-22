@@ -20,7 +20,7 @@ public abstract class PuntoDiEmissione {
 
     // Costruttore vuoto
 
-    public PuntoDiEmissione() {
+    protected PuntoDiEmissione() {
     }
 
     // Costruttore con parametri
@@ -45,5 +45,13 @@ public abstract class PuntoDiEmissione {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public String toString() {
+        return "PuntoDiEmissione{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }

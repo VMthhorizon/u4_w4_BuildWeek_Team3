@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "distributori")
-@DiscriminatorValue("DISTRIBUTORE")
+@DiscriminatorValue("distributori")
 public class Distributore extends PuntoDiEmissione {
 
     @Column(name = "stato")
@@ -15,7 +15,7 @@ public class Distributore extends PuntoDiEmissione {
 
     // Costruttore vuoto
 
-    public Distributore() {
+    protected Distributore() {
     }
 
     // Costruttore con parametri
