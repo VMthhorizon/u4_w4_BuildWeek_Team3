@@ -6,13 +6,19 @@
         <class>Team3.entities.TitoloViaggio</class>
         <class>Team3.entities.Abbonamento</class>
         <class>Team3.entities.Biglietto</class>
+        <class>Team3.entities.Utente</class>
+        <class>Team3.entities.Tessera</class>
+        <class>Team3.entities.PuntoDiEmissione</class>
+        <class>Team3.entities.Distributore</class>
+        <class>Team3.entities.Rivenditore</class>
+
         <properties>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:postgresql://localhost:5432/u4_buildweek"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="1234"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>
