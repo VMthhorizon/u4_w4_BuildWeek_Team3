@@ -2,6 +2,7 @@ package Team3.Dao;
 
 import Team3.entities.Percorrenza;
 import Team3.entities.TitoloViaggio;
+import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -29,7 +30,7 @@ public class PercorrenzaDao {
     //FIND BY ID
     public Percorrenza findById(String id) {
         Percorrenza percorrenzaTrovata = this.entityManager.find(Percorrenza.class, UUID.fromString(id));
-        if (percorrenzaTrovata == null) throw new NotFoundExceptions(id);
+        if (percorrenzaTrovata == null) throw new NotFoundException("Impossibile trovare la percorrenza con id " + id);
         return percorrenzaTrovata;
     }
 }

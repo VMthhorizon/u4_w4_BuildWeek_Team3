@@ -1,6 +1,7 @@
 package Team3.Dao;
 
 import Team3.entities.TitoloViaggio;
+import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -28,7 +29,8 @@ public class TitoloViaggioDAO {
     // SAVE BY ID
     public TitoloViaggio findById(String id) {
         TitoloViaggio viaggioTrovato = this.entityManager.find(TitoloViaggio.class, UUID.fromString(id));
-        if (viaggioTrovato == null) throw new NotFoundExceptions(id);
+        if (viaggioTrovato == null)
+            throw new NotFoundException("Impossibile trovare il titolo di viaggio con id " + id);
         return viaggioTrovato;
     }
 }
