@@ -22,7 +22,7 @@ public class MezzoDiTrasportoDao {
 
             System.out.println(mezzoDiTrasporto + " é stato salvato");
         } catch (NotFoundException ex) {
-            System.out.println("");
+            System.out.println("Il mezzo di trasporto " + mezzoDiTrasporto + " non é stato trovato");
         }
 
     }
