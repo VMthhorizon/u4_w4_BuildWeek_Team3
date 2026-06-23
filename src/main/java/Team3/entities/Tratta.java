@@ -26,6 +26,10 @@ public class Tratta {
         this.tempoPrevisto = tempoPrevisto;
     }
 
+    public UUID getIdTratta() {
+        return idTratta;
+    }
+
     @Override
     public String toString() {
         return "Tratta{" +

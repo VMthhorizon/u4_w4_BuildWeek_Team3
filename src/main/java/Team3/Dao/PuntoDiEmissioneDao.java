@@ -37,5 +37,4 @@ public class PuntoDiEmissioneDao {
         }
         return puntoDiEmissione;
     }
-
 }
