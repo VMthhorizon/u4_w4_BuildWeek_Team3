@@ -1,6 +1,7 @@
 package Team3.entities;
 
 import Team3.enums.StatoMezzo;
+import Team3.enums.TipoManutenzione;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -22,14 +23,19 @@ public class StoricoMezzo {
     @Column(name = "data_fine")
     private LocalDate dataFine;
 
+    @Column(name = "causa_manutenzione")
+    private TipoManutenzione causaManutenzione;
+
     protected StoricoMezzo() {
     }
 
-    public StoricoMezzo(MezzoDiTrasporto mezzoDiTrasporto, LocalDate dataInizio, LocalDate dataFine) {
+    public StoricoMezzo(MezzoDiTrasporto mezzoDiTrasporto, LocalDate dataInizio, LocalDate dataFine,
+                        TipoManutenzione causaManutenzione) {
         this.mezzoDiTrasporto = mezzoDiTrasporto;
         this.stato = mezzoDiTrasporto.getStato();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
+        this.causaManutenzione = causaManutenzione;
     }
 
     @Override

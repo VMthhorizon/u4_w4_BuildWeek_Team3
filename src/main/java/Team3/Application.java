@@ -5,11 +5,13 @@ import Team3.entities.*;
 import Team3.enums.StatoDistributore;
 import Team3.enums.StatoMezzo;
 import Team3.enums.TipoAbbonamento;
+import Team3.enums.TipoManutenzione;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Application {
 
@@ -53,11 +55,19 @@ public class Application {
         Distributore distr3 = new Distributore("MetroRoma_Termini", StatoDistributore.ATTIVO);
         Distributore distr4 = new Distributore("CinemaFellini_Kiosk", StatoDistributore.FUORI_SERVIZIO);
         Distributore distr5 = new Distributore("Trenitalia_SelfService", StatoDistributore.ATTIVO);
-        Rivenditore rivend1 = new Rivenditore("Tabaccheria", "tabaccheria Napoli");
-        Rivenditore rivend2 = new Rivenditore("Edicola Stazione", "Piazza Garibaldi, Roma");
-        Rivenditore rivend3 = new Rivenditore("Bar del Corso", "Corso Umberto I, Torino");
-        Rivenditore rivend4 = new Rivenditore("Tabaccheria Toledo", "Via Toledo, Firenze");
-        Rivenditore rivend5 = new Rivenditore("Ricevitoria Vomero", "Via Scarlatti, Genova");
+        Rivenditore rivend1 = new Rivenditore("Tabaccheria dei Re", "via Maurizio Piscicelli 42", LocalTime.of(8, 0),
+                LocalTime.of(19, 0));
+        Rivenditore rivend2 = new Rivenditore("Edicola Centrale", "Piazza Garibaldi 15", LocalTime.of(6, 30),
+                LocalTime.of(20, 0));
+
+        Rivenditore rivend3 = new Rivenditore("Bar dello Sport", "Corso Vittorio Emanuele 102", LocalTime.of(6, 0),
+                LocalTime.of(21, 0));
+
+        Rivenditore rivend4 = new Rivenditore("Tabacchi e Servizi", "Via Roma 74", LocalTime.of(7, 45),
+                LocalTime.of(19, 30));
+
+        Rivenditore rivend5 = new Rivenditore("Cafè della Stazione", "Viale dei Mille 9", LocalTime.of(8, 15),
+                LocalTime.of(20, 30));
 
         // OGGETTI MEZZI DI TRASPORTO NON ANCORA MANAGED
         Tram tram1 = new Tram(StatoMezzo.MANUTENZIONE, 80);
@@ -80,15 +90,15 @@ public class Application {
         Biglietto biglietto4 = new Biglietto(LocalDate.of(2026, 4, 2), rivend2, true, null, bus2);
         Biglietto biglietto5 = new Biglietto(LocalDate.of(2026, 3, 21), rivend3, true, null, tram3);
         Abbonamento abbonamento1 = new Abbonamento(LocalDate.of(2026, 6, 3), distr3, TipoAbbonamento.SETTIMANALE,
-                tessera1); // Questo sarà SCADUTA
+                tessera1, LocalDate.of(2026, 6, 15)); // Questo sarà SCADUTA
         Abbonamento abbonamento2 = new Abbonamento(LocalDate.of(2026, 5, 20), distr3, TipoAbbonamento.MENSILE,
-                tessera2); // Questo sarà SCADUTA
+                tessera2, LocalDate.of(2026, 6, 3)); // Questo sarà SCADUTA
         Abbonamento abbonamento3 = new Abbonamento(LocalDate.of(2026, 6, 23), distr3, TipoAbbonamento.SETTIMANALE,
-                tessera3); // VALIDO non scaduta
+                tessera3, LocalDate.of(2026, 7, 12)); // VALIDO non scaduta
         Abbonamento abbonamento4 = new Abbonamento(LocalDate.of(2026, 6, 20), distr3, TipoAbbonamento.MENSILE,
-                tessera4); //VALIDO non scaduto
+                tessera4, LocalDate.of(2026, 8, 20)); //VALIDO non scaduto
         Abbonamento abbonamento5 = new Abbonamento(LocalDate.of(2026, 3, 15), distr3, TipoAbbonamento.MENSILE,
-                tessera5); // SCADUTO non valido
+                tessera5, LocalDate.of(2026, 7, 22)); // SCADUTO non valido
 
         // OGGETTI TRATTA NON MANAGED
 
@@ -105,16 +115,21 @@ public class Application {
 
         // OGGETTI STORICO MEZZI NON MANAGED
 
-        StoricoMezzo storico1 = new StoricoMezzo(tram1, LocalDate.of(2026, 6, 26), null);
-        StoricoMezzo storico2 = new StoricoMezzo(bus1, LocalDate.of(2026, 5, 10), LocalDate.of(2026, 5, 11));
-        StoricoMezzo storico3 = new StoricoMezzo(tram2, LocalDate.of(2026, 6, 1), LocalDate.of(2026, 6, 2));
-        StoricoMezzo storico4 = new StoricoMezzo(bus2, LocalDate.of(2026, 6, 12), LocalDate.of(2026, 6, 13));
-        StoricoMezzo storico5 = new StoricoMezzo(tram3, LocalDate.of(2026, 6, 25), null);
-        StoricoMezzo storico6 = new StoricoMezzo(bus3, LocalDate.of(2026, 6, 26), null);
-        StoricoMezzo storico7 = new StoricoMezzo(tram4, LocalDate.of(2026, 5, 20), LocalDate.of(2026, 5, 21));
-        StoricoMezzo storico8 = new StoricoMezzo(bus4, LocalDate.of(2026, 6, 5), LocalDate.of(2026, 6, 6));
-        StoricoMezzo storico9 = new StoricoMezzo(tram5, LocalDate.of(2026, 6, 25), null);
-        StoricoMezzo storico10 = new StoricoMezzo(bus5, LocalDate.of(2026, 6, 26), null);
+        StoricoMezzo storico1 = new StoricoMezzo(tram1, LocalDate.of(2026, 6, 26), null, null);
+        StoricoMezzo storico2 = new StoricoMezzo(bus1, LocalDate.of(2026, 5, 10), LocalDate.of(2026, 5, 11),
+                TipoManutenzione.CARBURANTE);
+        StoricoMezzo storico3 = new StoricoMezzo(tram2, LocalDate.of(2026, 6, 1), LocalDate.of(2026, 6, 2),
+                TipoManutenzione.FRENI);
+        StoricoMezzo storico4 = new StoricoMezzo(bus2, LocalDate.of(2026, 6, 12), LocalDate.of(2026, 6, 13),
+                TipoManutenzione.GOMME);
+        StoricoMezzo storico5 = new StoricoMezzo(tram3, LocalDate.of(2026, 6, 25), null, null);
+        StoricoMezzo storico6 = new StoricoMezzo(bus3, LocalDate.of(2026, 6, 26), null, null);
+        StoricoMezzo storico7 = new StoricoMezzo(tram4, LocalDate.of(2026, 5, 20), LocalDate.of(2026, 5, 21),
+                TipoManutenzione.MOTORE);
+        StoricoMezzo storico8 = new StoricoMezzo(bus4, LocalDate.of(2026, 6, 5), LocalDate.of(2026, 6, 6),
+                TipoManutenzione.FRENI);
+        StoricoMezzo storico9 = new StoricoMezzo(tram5, LocalDate.of(2026, 6, 25), null, null);
+        StoricoMezzo storico10 = new StoricoMezzo(bus5, LocalDate.of(2026, 6, 26), null, null);
 
         // OGGETTI PERCORRENZA NON MANAGED
 

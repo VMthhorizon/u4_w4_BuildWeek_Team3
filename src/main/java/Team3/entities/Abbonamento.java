@@ -16,15 +16,18 @@ public class Abbonamento extends TitoloViaggio {
     @ManyToOne
     @JoinColumn(name = "id_tessera", nullable = false)
     private Tessera tessera;
+    @Column(name = "data_inizio_abbonamento")
+    private LocalDate dataInizioAbbonamento;
 
     protected Abbonamento() {
     }
 
     public Abbonamento(LocalDate dataEmissione, PuntoDiEmissione puntoDiEmissione, TipoAbbonamento tipo,
-                       Tessera tessera) {
+                       Tessera tessera, LocalDate dataInizioAbbonamento) {
         super(dataEmissione, puntoDiEmissione);
         this.tipo = tipo;
         this.tessera = tessera;
+        this.dataInizioAbbonamento = dataInizioAbbonamento;
     }
 
     public TipoAbbonamento getTipo() {
