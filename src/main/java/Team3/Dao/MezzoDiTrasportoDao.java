@@ -1,7 +1,7 @@
 package Team3.Dao;
 
 import Team3.entities.MezzoDiTrasporto;
-import Team3.exceptions.MezzoNotSaved;
+import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -21,8 +21,8 @@ public class MezzoDiTrasportoDao {
             t.commit();
 
             System.out.println(mezzoDiTrasporto + " é stato salvato");
-        } catch (MezzoNotSaved ex) {
-            System.out.println(ex.getMessage());
+        } catch (NotFoundException ex) {
+            System.out.println("");
         }
 
     }
