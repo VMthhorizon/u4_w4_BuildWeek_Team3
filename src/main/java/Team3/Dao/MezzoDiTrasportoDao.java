@@ -7,6 +7,8 @@ import jakarta.persistence.EntityTransaction;
 
 import java.util.UUID;
 
+import static org.hibernate.sql.ast.Clause.WHERE;
+
 public class MezzoDiTrasportoDao {
 
     private final EntityManager em;
@@ -36,4 +38,17 @@ public class MezzoDiTrasportoDao {
         System.out.println("Il mezzo con id: " + id + " é stato trovato");
         return mezzoFromDb;
     }
+
+    public Long CountTratteByMezzo(String idMezzo) {
+
+        return em.createQuery(
+                        "SELECT COUNT(DISTINCT p.tratta.idTratta) " +
+                                "FROM Percorrenza p " +
+                                "WHERE p.mezzoDiTrasporto.id_mezzo = :mezzoId",
+                        Long.class)
+                .setParameter("mezzoId", UUID.fromString(idMezzo))
+                .getSingleResult();
+    }
+
 }
+

@@ -460,5 +460,10 @@ public class Application {
         Percorrenza percorrenza10FromDb = percorrenzaDao.findById(per10.getIdPercorrenza()
                 .toString());
 
+       /* Long count = mezzoDao.CountTratteByMezzo(
+                m1.getId_mezzo().toString()
+        );
+
+        System.out.println("tratte: " + count);*/
     }
 }
