@@ -38,6 +38,10 @@ public class StoricoMezzo {
         this.causaManutenzione = causaManutenzione;
     }
 
+    public UUID getIdStorico() {
+        return idStorico;
+    }
+
     @Override
     public String toString() {
         return "StoricoMezzo{" +

@@ -1,8 +1,11 @@
 package Team3.Dao;
 
 import Team3.entities.TitoloViaggio;
+import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.util.UUID;
 
 public class TitoloViaggioDAO {
     private final EntityManager entityManager;
@@ -11,6 +14,7 @@ public class TitoloViaggioDAO {
         this.entityManager = entityManager;
     }
 
+    // SAVE
     public void save(TitoloViaggio newTitoloViaggio) throws Exception {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -20,5 +24,13 @@ public class TitoloViaggioDAO {
         } catch (Exception ex) {
             throw new Exception("Impossibile aggiungere un nuovo viaggio: " + ex.getMessage(), ex);
         }
+    }
+
+    // SAVE BY ID
+    public TitoloViaggio findById(String id) {
+        TitoloViaggio viaggioTrovato = this.entityManager.find(TitoloViaggio.class, UUID.fromString(id));
+        if (viaggioTrovato == null)
+            throw new NotFoundException("Impossibile trovare il titolo di viaggio con id " + id);
+        return viaggioTrovato;
     }
 }
