@@ -1,45 +1,41 @@
 package Team3.Dao;
 
+import Team3.exceptions.NotFoundException;
+import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
 import Team3.entities.PuntoDiEmissione;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
 import java.util.UUID;
 
 public class PuntoDiEmissioneDao {
 
-    private EntityManager em;
+    private final EntityManager entityManager;
 
-    public PuntoDiEmissioneDao(EntityManager em) {
-        this.em = em;
+    public PuntoDiEmissioneDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
-    public void save(PuntoDiEmissione p) {
-        em.getTransaction().begin();
-        em.persist(p);
-        em.getTransaction().commit();
+    public void save(PuntoDiEmissione newPuntoDiEmissione) {
+        EntityTransaction transaction = this.entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.persist(newPuntoDiEmissione);
+            transaction.commit();
+            System.out.println("Punto di emissione " + newPuntoDiEmissione.getNome() + ", salvato con successo");
+
+        } catch (Exception e) {
+            throw new SaveException("Errore durante il salvataggio del Punto di Emissione " + newPuntoDiEmissione.getNome() + ": " + e.getMessage());
+        }
     }
 
     public PuntoDiEmissione findById(UUID id) {
-        return em.find(PuntoDiEmissione.class, id);
-    }
-
-    public List<PuntoDiEmissione> findAll() {
-        return em.createQuery("SELECT p FROM PuntoDiEmissione p", PuntoDiEmissione.class).getResultList();
-    }
-
-    public void update(PuntoDiEmissione p) {
-        em.getTransaction().begin();
-        em.merge(p);
-        em.getTransaction().commit();
-    }
-
-    public void delete(UUID id) {
-        em.getTransaction().begin();
-        PuntoDiEmissione p = em.find(PuntoDiEmissione.class, id);
-        if (p != null) {
-            em.remove(p);
+        PuntoDiEmissione puntoDiEmissione = this.entityManager.find(PuntoDiEmissione.class, id);
+        if (puntoDiEmissione == null) {
+            throw new NotFoundException("Punto di emissione con ID " + id + " non trovato.");
         }
-        em.getTransaction().commit();
+        return puntoDiEmissione;
     }
+
 }
