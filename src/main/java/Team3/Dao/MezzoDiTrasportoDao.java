@@ -5,6 +5,8 @@ import Team3.exceptions.MezzoNotSaved;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.UUID;
+
 public class MezzoDiTrasportoDao {
 
     private final EntityManager em;
@@ -24,6 +26,9 @@ public class MezzoDiTrasportoDao {
         } catch (MezzoNotSaved ex) {
             System.out.println(ex.getMessage());
         }
+    }
 
+    public MezzoDiTrasporto findById(UUID id) {
+        return em.find(MezzoDiTrasporto.class, id);
     }
 }
