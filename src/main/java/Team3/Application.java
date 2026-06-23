@@ -12,6 +12,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Application {
 
@@ -459,6 +460,31 @@ public class Application {
                 .toString());
         Percorrenza percorrenza10FromDb = percorrenzaDao.findById(per10.getIdPercorrenza()
                 .toString());
+
+
+//        List<StoricoMezzo> periodiManutenzione = storicoMezzoDao.findPeriodiManutenzione(m1.getId_mezzo());
+//
+//        System.out.println("--- PERIODI DI MANUTENZIONE PER IL MEZZO " + m1.getId_mezzo() + " ---");
+//        if (periodiManutenzione.isEmpty()) {
+//            System.out.println("Nessun periodo di manutenzione registrato per questo mezzo.");
+//        } else {
+//            periodiManutenzione.forEach(System.out::println));
+//        }
+
+//        List<StoricoMezzo> periodiManutenzione = storicoMezzoDao.findPeriodiManutenzione(m1.getId_mezzo());
+//
+//        System.out.println("\n--- RISULTATO: PERIODI DI MANUTENZIONE PER IL MEZZO " + m1.getId_mezzo() + " ---");
+//        if (periodiManutenzione.isEmpty()) {
+//            System.out.println("Nessun periodo di manutenzione registrato per questo mezzo.");
+//        } else {
+//            periodiManutenzione.forEach(System.out::println);
+//        }
+
+        /*Long count = mezzoDao.CountTratteByMezzo(
+                m1.getId_mezzo().toString()
+        );
+
+        System.out.println("tratte: " + count);*/
 
     }
 }
