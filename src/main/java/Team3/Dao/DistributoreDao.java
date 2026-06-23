@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import Team3.entities.Distributore;
 
 import java.util.List;
+import java.util.UUID;
 
 public class DistributoreDao {
 
@@ -19,7 +20,7 @@ public class DistributoreDao {
         em.getTransaction().commit();
     }
 
-    public Distributore findById(Long id) {
+    public Distributore findById(UUID id) {
         return em.find(Distributore.class, id);
     }
 
@@ -33,7 +34,7 @@ public class DistributoreDao {
         em.getTransaction().commit();
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         em.getTransaction().begin();
         Distributore dist = em.find(Distributore.class, id);
         if (dist != null) {

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import Team3.entities.Rivenditore;
 
 import java.util.List;
+import java.util.UUID;
 
 public class RivenditoreDao {
 
@@ -19,7 +20,7 @@ public class RivenditoreDao {
         em.getTransaction().commit();
     }
 
-    public Rivenditore findById(Long id) {
+    public Rivenditore findById(UUID id) {
         return em.find(Rivenditore.class, id);
     }
 
@@ -33,7 +34,7 @@ public class RivenditoreDao {
         em.getTransaction().commit();
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         em.getTransaction().begin();
         Rivenditore r = em.find(Rivenditore.class, id);
         if (r != null) {
