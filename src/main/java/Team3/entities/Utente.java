@@ -36,6 +36,14 @@ public class Utente {
         return id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
     @Override
     public String toString() {
         return "Utente{" +

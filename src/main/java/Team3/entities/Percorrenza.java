@@ -31,6 +31,11 @@ public class Percorrenza {
         this.dataPercorrenza = dataPercorrenza;
     }
 
+
+    public UUID getIdPercorrenza() {
+        return idPercorrenza;
+    }
+
     @Override
     public String toString() {
         return "Percorrenza{" +

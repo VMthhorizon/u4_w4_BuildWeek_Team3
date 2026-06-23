@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "biglietti")
-@DiscriminatorValue("tipo")
+@DiscriminatorValue("biglietto")
 public class Biglietto extends TitoloViaggio {
     @Column(name = "is_valido", nullable = false)
     private boolean isValido;

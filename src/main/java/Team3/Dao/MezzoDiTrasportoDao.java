@@ -15,7 +15,7 @@ public class MezzoDiTrasportoDao {
         this.em = em;
     }
 
-    public void saveMezzo(MezzoDiTrasporto mezzoDiTrasporto) {
+    public MezzoDiTrasporto save(MezzoDiTrasporto mezzoDiTrasporto) {
         try {
             EntityTransaction t = em.getTransaction();
             t.begin();
@@ -26,9 +26,14 @@ public class MezzoDiTrasportoDao {
         } catch (NotFoundException ex) {
             System.out.println("Il mezzo di trasporto " + mezzoDiTrasporto + " non é stato trovato");
         }
+        return mezzoDiTrasporto;
     }
 
-    public MezzoDiTrasporto findById(UUID id) {
-        return em.find(MezzoDiTrasporto.class, id);
+    public MezzoDiTrasporto findById(String id) {
+        MezzoDiTrasporto mezzoFromDb = em.find(MezzoDiTrasporto.class, UUID.fromString(id));
+        if (mezzoFromDb == null)
+            throw new NotFoundException("Mezzo di trasporto con id: " + id + " non é stato trovato");
+        System.out.println("Il mezzo con id: " + id + " é stato trovato");
+        return mezzoFromDb;
     }
 }

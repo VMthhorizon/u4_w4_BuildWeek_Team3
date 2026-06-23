@@ -6,6 +6,7 @@ import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.TreeMap;
 import java.util.UUID;
 
 public class TrattaDao {
@@ -15,7 +16,7 @@ public class TrattaDao {
         this.entityManager = entityManager;
     }
 
-    public void save(Tratta newTratta) {
+    public Tratta save(Tratta newTratta) {
         EntityTransaction transaction = this.entityManager.getTransaction();
         try {
             transaction.begin();
@@ -24,15 +25,18 @@ public class TrattaDao {
             System.out.println("Tratta " + newTratta.getIdTratta() + ", salvata con successo");
 
         } catch (Exception e) {
-            throw new SaveException("Errore durante il salvataggio del Punto di Emissione " + newTratta.getIdTratta() + ": " + e.getMessage());
+            throw new SaveException(
+                    "Errore durante il salvataggio del Punto di Emissione " + newTratta.getIdTratta() + ": " + e.getMessage());
         }
+        return newTratta;
     }
 
-    public Tratta findById(UUID id) {
-        Tratta tratta = this.entityManager.find(Tratta.class, id);
+    public Tratta findById(String id) {
+        Tratta tratta = this.entityManager.find(Tratta.class, UUID.fromString(id));
         if (tratta == null) {
             throw new NotFoundException("Tratta con ID " + id + " non trovato.");
         }
+        System.out.println("La tratta con ID: " + id + " é stata trovata");
         return tratta;
     }
 }

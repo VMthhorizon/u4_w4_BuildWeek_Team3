@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "abbonamenti")
-@DiscriminatorValue("tipo")
+@DiscriminatorValue("abbonamento")
 public class Abbonamento extends TitoloViaggio {
     @Column(name = "tipo", nullable = false)
     @Enumerated(EnumType.STRING)

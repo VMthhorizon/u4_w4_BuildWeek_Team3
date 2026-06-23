@@ -16,7 +16,7 @@ public class TesseraDao {
         this.em = em;
     }
 
-    public void save(Tessera tessera) {
+    public Tessera save(Tessera tessera) {
         try {
             EntityTransaction t = em.getTransaction();
             t.begin();
@@ -26,11 +26,12 @@ public class TesseraDao {
         } catch (SaveException ex) {
             System.out.println("La tessera: " + tessera + " non é stata salvata");
         }
+        return tessera;
     }
 
     public Tessera findById(String id) {
         Tessera fromDb = em.find(Tessera.class, UUID.fromString(id));
-        System.out.println("La tessera con id " + id + " non é stata trovata");
+        System.out.println("La tessera con id " + id + " é stata trovata");
         if (fromDb == null) throw new NotFoundException("La tessera con id " + id + " non é stata trovata");
         return fromDb;
     }

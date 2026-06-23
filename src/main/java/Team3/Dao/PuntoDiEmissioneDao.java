@@ -17,7 +17,7 @@ public class PuntoDiEmissioneDao {
         this.entityManager = entityManager;
     }
 
-    public void save(PuntoDiEmissione newPuntoDiEmissione) {
+    public PuntoDiEmissione save(PuntoDiEmissione newPuntoDiEmissione) {
         EntityTransaction transaction = this.entityManager.getTransaction();
         try {
             transaction.begin();
@@ -26,12 +26,14 @@ public class PuntoDiEmissioneDao {
             System.out.println("Punto di emissione " + newPuntoDiEmissione.getNome() + ", salvato con successo");
 
         } catch (Exception e) {
-            throw new SaveException("Errore durante il salvataggio del Punto di Emissione " + newPuntoDiEmissione.getNome() + ": " + e.getMessage());
+            throw new SaveException(
+                    "Errore durante il salvataggio del Punto di Emissione " + newPuntoDiEmissione.getNome() + ": " + e.getMessage());
         }
+        return newPuntoDiEmissione;
     }
 
-    public PuntoDiEmissione findById(UUID id) {
-        PuntoDiEmissione puntoDiEmissione = this.entityManager.find(PuntoDiEmissione.class, id);
+    public PuntoDiEmissione findById(String id) {
+        PuntoDiEmissione puntoDiEmissione = this.entityManager.find(PuntoDiEmissione.class, UUID.fromString(id));
         if (puntoDiEmissione == null) {
             throw new NotFoundException("Punto di emissione con ID " + id + " non trovato.");
         }

@@ -16,7 +16,7 @@ public class StoricoMezzoDao {
         this.em = em;
     }
 
-    public void save(StoricoMezzo storico) {
+    public StoricoMezzo save(StoricoMezzo storico) {
         try {
             EntityTransaction t = em.getTransaction();
             t.begin();
@@ -26,6 +26,7 @@ public class StoricoMezzoDao {
         } catch (SaveException ex) {
             System.out.println("Lo storico: " + storico + " non é stata salvato");
         }
+        return storico;
     }
 
     public StoricoMezzo findById(String id) {

@@ -30,6 +30,10 @@ public abstract class MezzoDiTrasporto {
         return stato;
     }
 
+    public UUID getId_mezzo() {
+        return id_mezzo;
+    }
+
     @Override
     public String toString() {
         return "MezzoDiTrasporto{" +

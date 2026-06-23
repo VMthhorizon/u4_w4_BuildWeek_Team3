@@ -16,21 +16,24 @@ public class PercorrenzaDao {
     }
 
     // SAVE
-    public void save(Percorrenza newPercorrenza) throws Exception {
+    public Percorrenza save(Percorrenza newPercorrenza) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.persist(newPercorrenza);
             transaction.commit();
+            System.out.println("La percorrenza " + newPercorrenza + " é stata salvata");
         } catch (Exception ex) {
-            throw new Exception("Impossibile aggiungere una nuova Percorrenza: " + ex.getMessage(), ex);
+            throw new NotFoundException("Impossibile aggiungere una nuova Percorrenza: " + ex.getMessage());
         }
+        return newPercorrenza;
     }
 
     //FIND BY ID
     public Percorrenza findById(String id) {
         Percorrenza percorrenzaTrovata = this.entityManager.find(Percorrenza.class, UUID.fromString(id));
         if (percorrenzaTrovata == null) throw new NotFoundException("Impossibile trovare la percorrenza con id " + id);
+        System.out.println("La percorrenza con id: " + id + " é stata trovata");
         return percorrenzaTrovata;
     }
 }
