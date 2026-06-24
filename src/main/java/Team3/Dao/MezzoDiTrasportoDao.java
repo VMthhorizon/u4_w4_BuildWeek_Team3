@@ -40,11 +40,7 @@ public class MezzoDiTrasportoDao {
 
     public Long countTratteByMezzo(String idMezzo) {
 
-        return em.createQuery(
-                        "SELECT COUNT(DISTINCT p.tratta.idTratta) " +
-                                "FROM Percorrenza p " +
-                                "WHERE p.mezzoDiTrasporto.id_mezzo = :mezzoId",
-                        Long.class)
+        return em.createQuery("SELECT COUNT(DISTINCT p.tratta.idTratta) " + "FROM Percorrenza p " + "WHERE p.mezzoDiTrasporto.id_mezzo = :mezzoId", Long.class)
                 .setParameter("mezzoId", UUID.fromString(idMezzo))
                 .getSingleResult();
     }
