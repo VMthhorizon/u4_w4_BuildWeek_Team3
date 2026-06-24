@@ -40,15 +40,24 @@ public class PercorrenzaDao {
 
     // NUMERO CORSE
     public Long countNumeroCorse(UUID idMezzo, UUID idTratta) {
-        return entityManager.createQuery("SELECT COUNT(p) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Long.class)
+        Long result = entityManager.createQuery(
+                        "SELECT COUNT(p) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta" +
+                                ".idTratta = :idTratta",
+                        Long.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
                 .getSingleResult();
+        if (result == 0)
+            throw new NotFoundException("Ci sono 0 corse per il mezzo: " + idMezzo + " e la tratta: " + idTratta);
+        return result;
     }
 
     // TEMPO MEDIO EFFETTIVO PERCORRENZA
     public Double averageTempoPercorenza(UUID idMezzo, UUID idTratta) {
-        return entityManager.createQuery("SELECT AVG(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Double.class)
+        return entityManager.createQuery(
+                        "SELECT AVG(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo" +
+                                " AND p.tratta.idTratta = :idTratta",
+                        Double.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
                 .getSingleResult();
@@ -56,19 +65,26 @@ public class PercorrenzaDao {
 
     // COUNT TEMPO EFFETTIVO PERCORRENZA
     public Long countTempoEffettivoPercorrenza(UUID idMezzo, UUID idTratta) {
-        return entityManager.createQuery("SELECT SUM(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Long.class)
+        return entityManager.createQuery(
+                        "SELECT SUM(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo" +
+                                " AND p.tratta.idTratta = :idTratta",
+                        Long.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
                 .getSingleResult();
     }
 
     public List<Percorrenza> findAll() {
-        return entityManager.createQuery("SELECT t FROM Percorrenza t", Percorrenza.class)
+        List<Percorrenza> result = entityManager.createQuery("SELECT t FROM Percorrenza t", Percorrenza.class)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non ci sono percorrenze nel Database!");
+        return result;
     }
 
     public long count() {
-        return entityManager.createQuery("SELECT COUNT(t) FROM Percorrenza t", Long.class)
+        long result = entityManager.createQuery("SELECT COUNT(t) FROM Percorrenza t", Long.class)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono percorrenze per il conteggio!");
+        return result;
     }
 }

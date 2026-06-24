@@ -42,12 +42,17 @@ public class PuntoDiEmissioneDao {
     }
 
     public List<PuntoDiEmissione> findAll() {
-        return entityManager.createQuery("SELECT t FROM PuntoDiEmissione t", PuntoDiEmissione.class)
+        List<PuntoDiEmissione> result = entityManager.createQuery("SELECT t FROM PuntoDiEmissione t",
+                        PuntoDiEmissione.class)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non ci sono punti di emissione nel Database");
+        return result;
     }
 
     public long count() {
-        return entityManager.createQuery("SELECT COUNT(t) FROM PuntoDiEmissione t", Long.class)
+        long result = entityManager.createQuery("SELECT COUNT(t) FROM PuntoDiEmissione t", Long.class)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono punti di emissione da conteggiare");
+        return result;
     }
 }

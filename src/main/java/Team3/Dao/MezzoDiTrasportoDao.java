@@ -42,18 +42,27 @@ public class MezzoDiTrasportoDao {
 
     public Long countTratteByMezzo(String idMezzo) {
 
-        return em.createQuery("SELECT COUNT(DISTINCT p.tratta.idTratta) " + "FROM Percorrenza p " + "WHERE p.mezzoDiTrasporto.id_mezzo = :mezzoId", Long.class)
+        Long result = em.createQuery(
+                        "SELECT COUNT(DISTINCT p.tratta.idTratta) " + "FROM Percorrenza p " + "WHERE p" +
+                                ".mezzoDiTrasporto.id_mezzo = :mezzoId",
+                        Long.class)
                 .setParameter("mezzoId", UUID.fromString(idMezzo))
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono tratte per il mezzo: " + idMezzo);
+        return result;
     }
 
     public List<MezzoDiTrasporto> findAll() {
-        return em.createQuery("SELECT t FROM MezzoDiTrasporto t", MezzoDiTrasporto.class)
+        List<MezzoDiTrasporto> result = em.createQuery("SELECT t FROM MezzoDiTrasporto t", MezzoDiTrasporto.class)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non ci sono mezzi di trasporto nel Database!");
+        return result;
     }
 
     public long count() {
-        return em.createQuery("SELECT COUNT(t) FROM MezzoDiTrasporto t", Long.class)
+        long result = em.createQuery("SELECT COUNT(t) FROM MezzoDiTrasporto t", Long.class)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("I mezzi di trasporto totali sono 0");
+        return result;
     }
 }

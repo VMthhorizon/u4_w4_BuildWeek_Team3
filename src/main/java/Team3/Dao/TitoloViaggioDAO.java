@@ -107,32 +107,40 @@ public class TitoloViaggioDAO {
 
     //COUNT BIGLIETTI OBLITERATI by MEZZO   SOLO CONTROLLORE
     public Long totaleBigliettiVidimatiByMezzo(String idMezzo) {
-        return entityManager.createQuery(
+        Long result = entityManager.createQuery(
                         "SELECT COUNT(a) FROM Biglietto a WHERE a.isValido = false AND a.mezzoDiTrasporto.id_mezzo = " +
                                 ":idMezzo",
                         Long.class)
                 .setParameter("idMezzo", UUID.fromString(idMezzo))
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono biglietti!");
+        return result;
     }
 
     //COUNT BIGLIETTI OBLITERATI by DATE    SOLO CONTROLLORE
     public Long totaleBigliettiVidimatiByDate(LocalDate inizio, LocalDate fine) {
-        return entityManager.createQuery(
+        Long result = entityManager.createQuery(
                         "SELECT COUNT(a) FROM Biglietto a WHERE a.isValido = false AND a.dataDiUtilizzo BETWEEN " +
                                 ":inizio AND :fine",
                         Long.class)
                 .setParameter("inizio", inizio)
                 .setParameter("fine", fine)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono biglietti!");
+        return result;
     }
 
     public List<TitoloViaggio> findAll() {
-        return entityManager.createQuery("SELECT t FROM TitoloViaggio t", TitoloViaggio.class)
+        List<TitoloViaggio> result = entityManager.createQuery("SELECT t FROM TitoloViaggio t", TitoloViaggio.class)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non sono stati trovati titoli di viaggio nel Database");
+        return result;
     }
 
     public long count() {
-        return entityManager.createQuery("SELECT COUNT(t) FROM TitoloViaggio t", Long.class)
+        Long result = entityManager.createQuery("SELECT COUNT(t) FROM TitoloViaggio t", Long.class)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono titoli di viaggio");
+        return result;
     }
 }

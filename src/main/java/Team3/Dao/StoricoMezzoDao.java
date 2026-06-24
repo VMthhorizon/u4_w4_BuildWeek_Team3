@@ -40,26 +40,41 @@ public class StoricoMezzoDao {
     }
 
     public List<StoricoMezzo> findPeriodiServizio(UUID idMezzo) {
-        return em.createQuery("SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = :statoServizio ORDER BY s.dataInizio DESC", StoricoMezzo.class)
+        List<StoricoMezzo> result = em.createQuery(
+                        "SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = " +
+                                ":statoServizio ORDER BY s.dataInizio DESC",
+                        StoricoMezzo.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("statoServizio", StatoMezzo.SERVIZIO)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non ci sono storici di Servizio per il mezzo: " + idMezzo);
+        return result;
     }
 
     public List<StoricoMezzo> findPeriodiManutenzione(UUID idMezzo) {
-        return em.createQuery("SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = :statoManutenzione ORDER BY s.dataInizio DESC", StoricoMezzo.class)
+        List<StoricoMezzo> result = em.createQuery(
+                        "SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = " +
+                                ":statoManutenzione ORDER BY s.dataInizio DESC",
+                        StoricoMezzo.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("statoManutenzione", StatoMezzo.MANUTENZIONE)
                 .getResultList();
+        if (result.isEmpty())
+            throw new NotFoundException("Non ci sono storici di Manutenzione per il mezzo: " + idMezzo);
+        return result;
     }
 
     public List<StoricoMezzo> findAll() {
-        return em.createQuery("SELECT t FROM StoricoMezzo t", StoricoMezzo.class)
+        List<StoricoMezzo> result = em.createQuery("SELECT t FROM StoricoMezzo t", StoricoMezzo.class)
                 .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Non ci sono Storici mezzo nel Database!");
+        return result;
     }
 
     public long count() {
-        return em.createQuery("SELECT COUNT(t) FROM StoricoMezzo t", Long.class)
+        long result = em.createQuery("SELECT COUNT(t) FROM StoricoMezzo t", Long.class)
                 .getSingleResult();
+        if (result == 0) throw new NotFoundException("Non ci sono storici mezzi per il conteggio");
+        return result;
     }
 }
