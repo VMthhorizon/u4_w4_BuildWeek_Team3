@@ -57,8 +57,6 @@ public class Application {
 //        Tessera t10 = tesseraDao.save(tessera10);
 
 
-
-
         // ISTANZIARE TESSERE DAL DB NELLE VARIABILI
 
 
@@ -82,7 +80,6 @@ public class Application {
 //                .toString());
 //        Tessera tessera10FromDb = tesseraDao.findById(t10.getId()
 //                .toString());
-
 
 
         // OGGETTI UTENTE NON ANCORA MANAGED
@@ -117,7 +114,6 @@ public class Application {
 
         // ISTANZIARE UTENTI DAL DB NELLE VARIABILI
 
-n
 //        Utente u1FromDb = utenteDao.findById(user1.getId()
 //                .toString());
 //        Utente u2FromDb = utenteDao.findById(user1.getId()
@@ -196,7 +192,6 @@ n
 //        PuntoDiEmissione pe8 = puntoEmissioneDao.save(rivend3);
 //        PuntoDiEmissione pe9 = puntoEmissioneDao.save(rivend4);
 //        PuntoDiEmissione pe10 = puntoEmissioneDao.save(rivend5);
-
 
 
         // ISTANZIARE DISTRIBUTORI e RIVENDITORI DAL DB NELLE VARIABILI
@@ -337,7 +332,6 @@ n
 //        TitoloViaggio tv8 = titoloViaggioDao.save(abbonamento3);
 //        TitoloViaggio tv9 = titoloViaggioDao.save(abbonamento4);
 //        TitoloViaggio tv10 = titoloViaggioDao.save(abbonamento5);
-
 
 
         // ISTANZIARE BIGLIETTI e ABBONAMENTI DAL DB
