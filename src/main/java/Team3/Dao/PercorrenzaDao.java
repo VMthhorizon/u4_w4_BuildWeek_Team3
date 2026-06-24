@@ -50,7 +50,7 @@ public class PercorrenzaDao {
     }
 
     // TEMPO MEDIO EFFETTIVO PERCORRENZA
-    public Double AverageTempoPercorenza(UUID idMezzo, UUID idTratta) {
+    public Double averageTempoPercorenza(UUID idMezzo, UUID idTratta) {
         return entityManager.createQuery("SELECT AVG(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Double.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
