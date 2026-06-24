@@ -143,8 +143,9 @@ public class Application {
 
 
         // SCANNER
+        System.out.println(" ");
         System.out.println("Login");
-        int scelta;
+        int scelta = 0;
         int sceltaUtente;
         int sceltaAmm;
         do {
@@ -154,17 +155,40 @@ public class Application {
                     0. Esci
                     """);
 
-            scelta = Integer.parseInt(scanner.nextLine());
+            try {
+                scelta = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Errore: Inserisci un numero intero valido!");
+                scelta = -1;
+                continue;
+            }
 
             switch (scelta) {
                 case 1:
                     System.out.println("Area Utente");
-
                     System.out.println("Inserisci i tuoi dati per registrarti come utente");
-                    System.out.println("nome");
-                    String nome = scanner.nextLine();
-                    System.out.println("cognome");
-                    String cognome = scanner.nextLine();
+
+                    String nome = "";
+                    while (nome.trim()
+                            .isEmpty()) {
+                        System.out.print("nome: ");
+                        nome = scanner.nextLine();
+                        if (nome.trim()
+                                .isEmpty()) {
+                            System.out.println("Errore: Il nome non può essere vuoto!");
+                        }
+                    }
+
+                    String cognome = "";
+                    while (cognome.trim()
+                            .isEmpty()) {
+                        System.out.print("cognome: ");
+                        cognome = scanner.nextLine();
+                        if (cognome.trim()
+                                .isEmpty()) {
+                            System.out.println("Errore: Il cognome non può essere vuoto!");
+                        }
+                    }
 
                     Utente utenteRegistrato = new Utente(nome, cognome);
                     utenteDao.save(utenteRegistrato);
@@ -180,8 +204,14 @@ public class Application {
                                 6. Valida biglietto
                                 0. Esci
                                 """);
-                        sceltaUtente = Integer.parseInt(scanner.nextLine());
 
+                        try {
+                            sceltaUtente = Integer.parseInt(scanner.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.out.println("Errore: Inserisci un numero intero valido!\n");
+                            sceltaUtente = -1;
+                            continue;
+                        }
                         switch (sceltaUtente) {
                             case 1:
 
@@ -192,36 +222,54 @@ public class Application {
                                 break;
                             case 2:
                                 System.out.println("Scegli la data di inizio validità del tuo abbonamento mensile");
-                                LocalDate inizioAbbonMens = LocalDate.parse(scanner.next());
+
+
+                                LocalDate inizioAbbonMens = null;
+                                while (inizioAbbonMens == null) {
+                                    System.out.print("Inserisci la data (formato AAAA-MM-GG, es. 2026-06-24): ");
+                                    try {
+                                        inizioAbbonMens = LocalDate.parse(scanner.nextLine());
+                                    } catch (java.time.format.DateTimeParseException e) {
+                                        System.out.println(
+                                                "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
+                                    }
+                                }
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
                                                 .toString());
-
-
                                 TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(),
                                         puntoDiEmissione.get(1), TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb,
                                         inizioAbbonMens);
 
                                 titoloViaggioDao.save(abbonamentoMensile);
-                                System.out.println("Abbonamento acquistato correttamente" + abbonamentoMensile);
+                                System.out.println("Abbonamento acquistato correttamente: " + abbonamentoMensile);
                                 break;
                             case 3:
                                 System.out.println("Scegli la data di inizio validità del tuo abbonamento settimanale");
-                                LocalDate inizioAbbonSett = LocalDate.parse(scanner.next());
+
+
+                                LocalDate inizioAbbonSett = null;
+                                while (inizioAbbonSett == null) {
+                                    System.out.print("Inserisci la data (formato AAAA-MM-GG, es. 2026-06-24): ");
+                                    try {
+                                        inizioAbbonSett = LocalDate.parse(scanner.nextLine());
+                                    } catch (java.time.format.DateTimeParseException e) {
+                                        System.out.println(
+                                                "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
+                                    }
+                                }
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
                                                 .toString());
-
-
                                 TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(),
                                         puntoDiEmissione.get(0), TipoAbbonamento.SETTIMANALE,
                                         tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
-
                                 titoloViaggioDao.save(abbonamentoSettimanale);
                                 TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(
                                         abbonamentoSettimanale.getId()
                                                 .toString());
-                                System.out.println("Abbonamento acquistato correttamente" + abbonamentoSettFromDb);
+                                System.out.println("Abbonamento acquistato correttamente: " + abbonamentoSettFromDb);
+
                                 break;
                             case 4:
                                 Tessera tesseraUtenteRegistratoFromDb3 = tesseraDao.findById(
@@ -242,6 +290,9 @@ public class Application {
                                 System.out.println("I tuoi abbonamenti: " + titoloViaggioDao.abbonamentoByIdTessera(
                                         tesseraUtenteRegistratoFromDb4.getId()
                                                 .toString()));
+                                break;
+                            case 0:
+                                System.out.println("Menù iniziale:");
                                 break;
                             default:
                                 System.out.println("Scelta non valida");
@@ -277,6 +328,7 @@ public class Application {
                                 12. Statistiche
                                 0. Torna indietro
                                 """);
+
                         sceltaAmm = Integer.parseInt(scanner.nextLine());
 
                         switch (sceltaAmm) {
