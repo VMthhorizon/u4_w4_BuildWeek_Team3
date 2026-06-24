@@ -548,6 +548,7 @@ public class Application {
         System.out.println("Login");
         int scelta;
         int sceltaUtente;
+        int sceltaAmm;
         do {
             System.out.println("""
                     1. Area Utente
@@ -625,17 +626,55 @@ public class Application {
                         }
                     } while (sceltaUtente != 0);
                     break;
-
-
                 case 2:
                     System.out.println("Area Amministratore");
                     System.out.println("Inserisci email");
                     String emailAmm = scanner.nextLine();
                     System.out.println("Inserisci password");
                     String pwAmm = scanner.nextLine();
+
+                    do {
+                        System.out.println("""
+                                1. Registra utente
+                                2. Emetti tessera
+                                3. Crea distributore
+                                4. Crea rivenditore
+                                5. Registra autobus
+                                6. Registra tram
+                                7. Registra tratta
+                                8. Registra percorrenza
+                                9. Metti mezzo in manutenzione
+                                10. Riattiva mezzo
+                                11. Statistiche
+                                0. Torna indietro
+                                """);
+                        sceltaAmm = Integer.parseInt(scanner.nextLine());
+
+                        switch (sceltaAmm) {
+                            case 1:
+                                System.out.println("Inserisci il nome dell'utente da registrare");
+                                String nomeNuovo = scanner.nextLine();
+                                System.out.println("Inserisci il cognome dell'utente da registrare");
+                                String cognomeNuovo = scanner.nextLine();
+                                Utente utenteNuovo = new Utente(nomeNuovo, cognomeNuovo);
+                                utenteDao.save(utenteNuovo);
+
+                                System.out.println("Utente inserito con successo" + utenteNuovo);
+                                break;
+                            case 2:
+                                System.out.println("Inserisci l'id dell'utente");
+                                String idUtente = scanner.nextLine();
+                                Utente utenteNuovoFromDb = utenteDao.findById(idUtente);
+                                Tessera tessera = new Tessera(LocalDate.now(), utenteNuovoFromDb);
+                            default:
+                                System.out.println("Scelta non valida");
+                        }
+
+
+                    } while (sceltaAmm != 0);
+
+
                     break;
-
-
                 case 0:
                     System.out.println("Arrivederci!");
                     break;
