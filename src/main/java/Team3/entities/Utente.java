@@ -14,21 +14,15 @@ public class Utente {
     private String nome;
     private String cognome;
 
-    @OneToOne
-    @JoinColumn(name = "id_tessera", unique = true, nullable = false)
-    private Tessera tessera;
-
-
     // COSTRUTTORE VUOTO
     protected Utente() {
 
     }
 
     // COSTRUTTORE
-    public Utente(String nome, String cognome, Tessera tessera) {
+    public Utente(String nome, String cognome) {
         this.nome = nome;
         this.cognome = cognome;
-        this.tessera = tessera;
     }
 
     // GETTER
@@ -50,7 +44,7 @@ public class Utente {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
-                ", tessera=" + tessera.getId() +
+                
                 '}';
     }
 }
