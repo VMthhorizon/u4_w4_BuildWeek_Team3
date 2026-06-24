@@ -183,6 +183,7 @@ public class Application {
 
                         switch (sceltaUtente) {
                             case 1:
+
                                 TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(1), false, null, mezzo.get(1));
                                 titoloViaggioDao.save(titoloViaggio1);
                                 System.out.println("Biglietto acquistato correttamente");
@@ -192,7 +193,9 @@ public class Application {
                                 LocalDate inizioAbbonMens = LocalDate.parse(scanner.next());
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
 
+
                                 TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(1), TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb, inizioAbbonMens);
+
                                 titoloViaggioDao.save(abbonamentoMensile);
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoMensile);
                                 break;
@@ -201,7 +204,9 @@ public class Application {
                                 LocalDate inizioAbbonSett = LocalDate.parse(scanner.next());
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
 
-                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(1), TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
+
+                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(0), TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
+
                                 titoloViaggioDao.save(abbonamentoSettimanale);
                                 TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(abbonamentoSettimanale.getId().toString());
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoSettFromDb);
@@ -268,6 +273,7 @@ public class Application {
                                 System.out.println("Inserisci l'id dell'utente");
                                 String idUtente = scanner.nextLine();
                                 Utente utenteNuovoFromDb = utenteDao.findById(idUtente);
+
                                 Tessera tesseraNuovoUtente = new Tessera(LocalDate.now(), utenteNuovoFromDb);
                                 tesseraDao.save(tesseraNuovoUtente);
                             case 3:
