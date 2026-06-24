@@ -39,6 +39,14 @@ public class Tessera {
         return id;
     }
 
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
+    }
+
+    public LocalDate getDataEmissione() {
+        return dataEmissione;
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
