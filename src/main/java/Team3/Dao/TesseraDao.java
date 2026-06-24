@@ -1,11 +1,13 @@
 package Team3.Dao;
 
 import Team3.entities.Tessera;
+import Team3.entities.Utente;
 import Team3.exceptions.NotFoundException;
 import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
 import java.util.UUID;
 
 public class TesseraDao {
@@ -34,5 +36,15 @@ public class TesseraDao {
         System.out.println("La tessera con id " + id + " é stata trovata");
         if (fromDb == null) throw new NotFoundException("La tessera con id " + id + " non é stata trovata");
         return fromDb;
+    }
+
+    public List<Tessera> findAll() {
+        return em.createQuery("SELECT t FROM Tessera t", Tessera.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return em.createQuery("SELECT COUNT(t) FROM Tessera t", Long.class)
+                .getSingleResult();
     }
 }

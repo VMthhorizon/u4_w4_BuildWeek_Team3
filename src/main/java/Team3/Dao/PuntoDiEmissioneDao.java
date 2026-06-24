@@ -1,5 +1,6 @@
 package Team3.Dao;
 
+import Team3.entities.Tessera;
 import Team3.exceptions.NotFoundException;
 import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
@@ -38,5 +39,15 @@ public class PuntoDiEmissioneDao {
             throw new NotFoundException("Punto di emissione con ID " + id + " non trovato.");
         }
         return puntoDiEmissione;
+    }
+
+    public List<PuntoDiEmissione> findAll() {
+        return entityManager.createQuery("SELECT t FROM PuntoDiEmissione t", PuntoDiEmissione.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(t) FROM PuntoDiEmissione t", Long.class)
+                .getSingleResult();
     }
 }

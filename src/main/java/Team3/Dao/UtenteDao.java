@@ -42,4 +42,9 @@ public class UtenteDao {
         return entityManager.createQuery("SELECT u FROM Utente u", Utente.class)
                 .getResultList();
     }
+
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(u) FROM Utente u", Long.class)
+                .getSingleResult();
+    }
 }

@@ -125,4 +125,14 @@ public class TitoloViaggioDAO {
                 .setParameter("fine", fine)
                 .getSingleResult();
     }
+
+    public List<TitoloViaggio> findAll() {
+        return entityManager.createQuery("SELECT t FROM TitoloViaggio t", TitoloViaggio.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(t) FROM TitoloViaggio t", Long.class)
+                .getSingleResult();
+    }
 }

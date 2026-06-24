@@ -1,6 +1,7 @@
 package Team3.Dao;
 
 import Team3.entities.StoricoMezzo;
+import Team3.entities.Tessera;
 import Team3.enums.StatoMezzo;
 import Team3.exceptions.NotFoundException;
 import Team3.exceptions.SaveException;
@@ -50,5 +51,15 @@ public class StoricoMezzoDao {
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("statoManutenzione", StatoMezzo.MANUTENZIONE)
                 .getResultList();
+    }
+
+    public List<StoricoMezzo> findAll() {
+        return em.createQuery("SELECT t FROM StoricoMezzo t", StoricoMezzo.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return em.createQuery("SELECT COUNT(t) FROM StoricoMezzo t", Long.class)
+                .getSingleResult();
     }
 }
