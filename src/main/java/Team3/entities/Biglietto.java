@@ -31,7 +31,7 @@ public class Biglietto extends TitoloViaggio {
         this.mezzoDiTrasporto = mezzoDiTrasporto;
     }
 
-    public boolean GetIsValido() {
+    public boolean getIsValido() {
         return isValido;
     }
 
