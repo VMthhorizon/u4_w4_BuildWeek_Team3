@@ -13,6 +13,7 @@ import jakarta.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Scanner;
 
 public class Application {
 
@@ -20,6 +21,7 @@ public class Application {
 
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
+        Scanner scanner = new Scanner(System.in);
 
         MezzoDiTrasportoDao mezzoDao = new MezzoDiTrasportoDao(em);
         PercorrenzaDao percorrenzaDao = new PercorrenzaDao(em);
@@ -540,6 +542,107 @@ public class Application {
 
 //        System.out.println("prova count mezzi percorrenza");
 //        System.out.println(percorrenzaDao.countNumeroCorse(m1.getId_mezzo(), tr1.getIdTratta()));
+
+
+        // SCANNER
+        System.out.println("Login");
+        int scelta;
+        int sceltaUtente;
+        do {
+            System.out.println("""
+                    1. Area Utente
+                    2. Area Amministratore
+                    0. Esci
+                    """);
+
+            scelta = Integer.parseInt(scanner.nextLine());
+
+            switch (scelta) {
+                case 1:
+                    System.out.println("Area Utente");
+
+                    System.out.println("Inserisci i tuoi dati per registrarti come utente");
+                    System.out.println("nome");
+                    String nome = scanner.nextLine();
+                    System.out.println("cognome");
+                    String cognome = scanner.nextLine();
+
+                    Utente utenteRegistrato = new Utente(nome, cognome);
+                    utenteDao.save(utenteRegistrato);
+                    Tessera tesseraUtenteRegistrato = new Tessera(LocalDate.now(), utenteRegistrato);
+                    tesseraDao.save(tesseraUtenteRegistrato);
+                    do {
+                        System.out.println("""
+                                1. Acquista biglietto
+                                2. Acquista abbonamento mensile
+                                3. Acquista abbonamento settimanale
+                                4. Controlla validità tessera
+                                5. I miei abbonamenti
+                                6. Valida biglietto
+                                0. Esci
+                                """);
+                        sceltaUtente = Integer.parseInt(scanner.nextLine());
+
+                        switch (sceltaUtente) {
+                            case 1:
+                                TitoloViaggio titoloViaggio = new Biglietto(LocalDate.now(), pe1, false, null, m2);
+                                titoloViaggioDao.save(titoloViaggio);
+                                System.out.println("Biglietto acquistato correttamente");
+                                break;
+                            case 2:
+                                System.out.println("Scegli la data di inizio validità del tuo abbonamento mensile");
+                                LocalDate inizioAbbonMens = LocalDate.parse(scanner.next());
+                                Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+
+                                TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(), pe1, TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb, inizioAbbonMens);
+                                titoloViaggioDao.save(abbonamentoMensile);
+                                System.out.println("Abbonamento acquistato correttamente" + abbonamentoMensile);
+                                break;
+                            case 3:
+                                System.out.println("Scegli la data di inizio validità del tuo abbonamento settimanale");
+                                LocalDate inizioAbbonSett = LocalDate.parse(scanner.next());
+                                Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+
+                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), pe1, TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
+                                titoloViaggioDao.save(abbonamentoSettimanale);
+                                TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(abbonamentoSettimanale.getId().toString());
+                                System.out.println("Abbonamento acquistato correttamente" + abbonamentoSettFromDb);
+                                break;
+                            case 4:
+                                Tessera tesseraUtenteRegistratoFromDb3 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+                                if (tesseraUtenteRegistratoFromDb3.getDataScadenza().isAfter(LocalDate.now())) {
+                                    System.out.println("La tua tessera è valida fino al " + tesseraUtenteRegistratoFromDb3.getDataScadenza());
+                                } else {
+                                    System.out.println("Tessera non valida");
+                                }
+                                break;
+                            case 5:
+                                Tessera tesseraUtenteRegistratoFromDb4 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+                                System.out.println("I tuoi abbonamenti: " + titoloViaggioDao.abbonamentoByIdTessera(tesseraUtenteRegistratoFromDb4.getId().toString()));
+                                break;
+                            default:
+                                System.out.println("Scelta non valida");
+                        }
+                    } while (sceltaUtente != 0);
+                    break;
+
+
+                case 2:
+                    System.out.println("Area Amministratore");
+                    System.out.println("Inserisci email");
+                    String emailAmm = scanner.nextLine();
+                    System.out.println("Inserisci password");
+                    String pwAmm = scanner.nextLine();
+                    break;
+
+
+                case 0:
+                    System.out.println("Arrivederci!");
+                    break;
+                default:
+                    System.out.println("Scelta non valida!");
+            }
+        } while (scelta != 0);
 
 
     }
