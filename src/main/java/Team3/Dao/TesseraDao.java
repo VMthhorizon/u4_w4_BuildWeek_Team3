@@ -6,7 +6,9 @@ import Team3.exceptions.NotFoundException;
 import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,9 +35,20 @@ public class TesseraDao {
 
     public Tessera findById(String id) {
         Tessera fromDb = em.find(Tessera.class, UUID.fromString(id));
-        System.out.println("La tessera con id " + id + " é stata trovata");
         if (fromDb == null) throw new NotFoundException("La tessera con id " + id + " non é stata trovata");
         return fromDb;
+    }
+
+    public Tessera setRinnovoTessera(String id, LocalDate data) {
+        EntityTransaction t = em.getTransaction();
+        t.begin();
+        int righeModificate = em.createQuery("UPDATE Tessera SET dataEmissione = :data WHERE id = :id")
+                .setParameter("id", UUID.fromString(id))
+                .setParameter("data", data)
+                .executeUpdate();
+        t.commit();
+        System.out.println("La Tessera è stata rinnovata di un anno da oggi");
+        return em.find(Tessera.class, UUID.fromString(id));
     }
 
     public List<Tessera> findAll() {

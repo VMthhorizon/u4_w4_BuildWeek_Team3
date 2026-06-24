@@ -52,7 +52,8 @@ public class Application {
 
         // TITOLO VIAGGIO
         CreateTitoloViaggio createTitoloViaggio = new CreateTitoloViaggio();
-        List<TitoloViaggio> titoloViaggio = createTitoloViaggio.createTitoloViaggio(titoloViaggioDao, puntoDiEmissione, mezzo, tessera);
+        List<TitoloViaggio> titoloViaggio = createTitoloViaggio.createTitoloViaggio(titoloViaggioDao, puntoDiEmissione,
+                mezzo, tessera);
 
         // TRATTA
         CreateTratta createTratta = new CreateTratta();
@@ -184,17 +185,22 @@ public class Application {
                         switch (sceltaUtente) {
                             case 1:
 
-                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(1), false, null, mezzo.get(1));
+                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(1),
+                                        false, null, mezzo.get(1));
                                 titoloViaggioDao.save(titoloViaggio1);
                                 System.out.println("Biglietto acquistato correttamente");
                                 break;
                             case 2:
                                 System.out.println("Scegli la data di inizio validità del tuo abbonamento mensile");
                                 LocalDate inizioAbbonMens = LocalDate.parse(scanner.next());
-                                Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+                                Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(
+                                        tesseraUtenteRegistrato.getId()
+                                                .toString());
 
 
-                                TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(1), TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb, inizioAbbonMens);
+                                TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(),
+                                        puntoDiEmissione.get(1), TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb,
+                                        inizioAbbonMens);
 
                                 titoloViaggioDao.save(abbonamentoMensile);
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoMensile);
@@ -202,26 +208,40 @@ public class Application {
                             case 3:
                                 System.out.println("Scegli la data di inizio validità del tuo abbonamento settimanale");
                                 LocalDate inizioAbbonSett = LocalDate.parse(scanner.next());
-                                Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
+                                Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(
+                                        tesseraUtenteRegistrato.getId()
+                                                .toString());
 
 
-                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(0), TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
+                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(),
+                                        puntoDiEmissione.get(0), TipoAbbonamento.SETTIMANALE,
+                                        tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
 
                                 titoloViaggioDao.save(abbonamentoSettimanale);
-                                TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(abbonamentoSettimanale.getId().toString());
+                                TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(
+                                        abbonamentoSettimanale.getId()
+                                                .toString());
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoSettFromDb);
                                 break;
                             case 4:
-                                Tessera tesseraUtenteRegistratoFromDb3 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
-                                if (tesseraUtenteRegistratoFromDb3.getDataScadenza().isAfter(LocalDate.now())) {
-                                    System.out.println("La tua tessera è valida fino al " + tesseraUtenteRegistratoFromDb3.getDataScadenza());
+                                Tessera tesseraUtenteRegistratoFromDb3 = tesseraDao.findById(
+                                        tesseraUtenteRegistrato.getId()
+                                                .toString());
+                                if (tesseraUtenteRegistratoFromDb3.getDataScadenza()
+                                        .isAfter(LocalDate.now())) {
+                                    System.out.println(
+                                            "La tua tessera è valida fino al " + tesseraUtenteRegistratoFromDb3.getDataScadenza());
                                 } else {
                                     System.out.println("Tessera non valida");
                                 }
                                 break;
                             case 5:
-                                Tessera tesseraUtenteRegistratoFromDb4 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
-                                System.out.println("I tuoi abbonamenti: " + titoloViaggioDao.abbonamentoByIdTessera(tesseraUtenteRegistratoFromDb4.getId().toString()));
+                                Tessera tesseraUtenteRegistratoFromDb4 = tesseraDao.findById(
+                                        tesseraUtenteRegistrato.getId()
+                                                .toString());
+                                System.out.println("I tuoi abbonamenti: " + titoloViaggioDao.abbonamentoByIdTessera(
+                                        tesseraUtenteRegistratoFromDb4.getId()
+                                                .toString()));
                                 break;
                             default:
                                 System.out.println("Scelta non valida");
@@ -253,7 +273,8 @@ public class Application {
                                 8. Registra percorrenza
                                 9. Metti mezzo in manutenzione
                                 10. Riattiva mezzo
-                                11. Statistiche
+                                11. Controllo tessera
+                                12. Statistiche
                                 0. Torna indietro
                                 """);
                         sceltaAmm = Integer.parseInt(scanner.nextLine());
@@ -284,7 +305,8 @@ public class Application {
                                         "2-FUORI_SERVIZIO");
                                 int sceltaTipoDistr = Integer.parseInt(scanner.nextLine());
                                 if (sceltaTipoDistr == 1 || sceltaTipoDistr == 2) {
-                                    Distributore distributore = new Distributore(nomeDistr, StatoDistributore.values()[sceltaTipoDistr - 1]);
+                                    Distributore distributore = new Distributore(nomeDistr,
+                                            StatoDistributore.values()[sceltaTipoDistr - 1]);
                                     puntoEmissioneDao.save(distributore);
                                 } else {
                                     System.out.println("Inserisci un numero valido");
@@ -311,7 +333,8 @@ public class Application {
                                         "2-MANUTENZIONE");
                                 int sceltaStatoMezzo = Integer.parseInt(scanner.nextLine());
                                 if (sceltaStatoMezzo == 1 || sceltaStatoMezzo == 2) {
-                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(StatoMezzo.values()[sceltaStatoMezzo - 1], capienza);
+                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(
+                                            StatoMezzo.values()[sceltaStatoMezzo - 1], capienza);
                                     mezzoDao.save(mezzoDiTrasporto);
                                 } else {
                                     System.out.println("Inserisci un numero valido");
@@ -325,7 +348,8 @@ public class Application {
                                         "2-MANUTENZIONE");
                                 int sceltaStatoMezzo2 = Integer.parseInt(scanner.nextLine());
                                 if (sceltaStatoMezzo2 == 1 || sceltaStatoMezzo2 == 2) {
-                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(StatoMezzo.values()[sceltaStatoMezzo2 - 1], capienza2);
+                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(
+                                            StatoMezzo.values()[sceltaStatoMezzo2 - 1], capienza2);
                                     mezzoDao.save(mezzoDiTrasporto);
                                 } else {
                                     System.out.println("Inserisci un numero valido");
@@ -345,7 +369,10 @@ public class Application {
                             case 8:
                                 System.out.println("Scegli una tratta");
                                 for (int i = 0; i < tratta.size(); i++) {
-                                    System.out.println(i + 1 + " Da " + tratta.get(i).getZonaPartenza() + " a " + tratta.get(i).getZonaCapolinea() + ". Tempo previsto: " + tratta.get(i).getTempoPrevisto() + " minuti.");
+                                    System.out.println(i + 1 + " Da " + tratta.get(i)
+                                            .getZonaPartenza() + " a " + tratta.get(i)
+                                            .getZonaCapolinea() + ". Tempo previsto: " + tratta.get(i)
+                                            .getTempoPrevisto() + " minuti.");
                                 }
                                 int trattaScelta = Integer.parseInt(scanner.nextLine()) - 1;
                                 if (trattaScelta < 0 || trattaScelta >= tratta.size()) {
@@ -367,7 +394,8 @@ public class Application {
                                 System.out.println("Inserisci la data della percorrenza");
                                 LocalDate dataPercor = LocalDate.parse(scanner.next());
 
-                                Percorrenza percorrenza1 = new Percorrenza(tratta.get(trattaScelta), mezzo.get(mezzoScelto), tEffettivo, dataPercor);
+                                Percorrenza percorrenza1 = new Percorrenza(tratta.get(trattaScelta),
+                                        mezzo.get(mezzoScelto), tEffettivo, dataPercor);
                                 percorrenzaDao.save(percorrenza1);
                                 break;
                             case 9:
@@ -381,7 +409,8 @@ public class Application {
                                     continue;
                                 }
 
-                                UUID idMezzoFromDb = mezzo.get(mezzoScelto2).getId_mezzo();
+                                UUID idMezzoFromDb = mezzo.get(mezzoScelto2)
+                                        .getId_mezzo();
                                 mezzoDao.cambiaStato(idMezzoFromDb, StatoMezzo.MANUTENZIONE);
                                 break;
                             case 10:
@@ -395,10 +424,38 @@ public class Application {
                                     continue;
                                 }
 
-                                UUID idMezzoFromDb2 = mezzo.get(mezzoScelto3).getId_mezzo();
+                                UUID idMezzoFromDb2 = mezzo.get(mezzoScelto3)
+                                        .getId_mezzo();
                                 mezzoDao.cambiaStato(idMezzoFromDb2, StatoMezzo.SERVIZIO);
                                 break;
                             case 11:
+                                System.out.println("Scegli una tessera");
+                                for (int i = 0; i < tessera.size(); i++) {
+                                    System.out.println(i + 1 + " " + tessera.get(i));
+                                }
+                                int tesseraScelta = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (tesseraScelta < 0 || tesseraScelta >= tessera.size()) {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+                                if (tessera.get(tesseraScelta)
+                                        .getDataScadenza()
+                                        .isBefore(LocalDate.now())) {
+                                    System.out.println("Vuoi rinnovare la tessera?");
+                                    System.out.println("Digita 1 se SI\n Digita 2 se NO");
+                                    int sceltaRinnovo = Integer.parseInt(scanner.nextLine());
+                                    switch (sceltaRinnovo) {
+                                        case 1:
+                                            Tessera tesseraFromDb = tesseraDao.findById(tessera.get(tesseraScelta)
+                                                    .getId()
+                                                    .toString());
+                                            Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(
+                                                    tesseraFromDb.getId()
+                                                            .toString(),
+                                                    LocalDate.now());
+                                    }
+
+                                }
                                 break;
                             default:
                                 System.out.println("Scelta non valida");

@@ -47,6 +47,10 @@ public class Tessera {
         return dataEmissione;
     }
 
+    public void setDataEmissione(LocalDate dataEmissione) {
+        this.dataEmissione = dataEmissione;
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
