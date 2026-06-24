@@ -1,11 +1,13 @@
 package Team3.Dao;
 
 import Team3.entities.StoricoMezzo;
+import Team3.enums.StatoMezzo;
 import Team3.exceptions.NotFoundException;
 import Team3.exceptions.SaveException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
 import java.util.UUID;
 
 public class StoricoMezzoDao {
@@ -34,5 +36,19 @@ public class StoricoMezzoDao {
         System.out.println("La storico con id " + id + " non é stato trovato");
         if (fromDb == null) throw new NotFoundException("La storico con id " + id + " non é stato trovato");
         return fromDb;
+    }
+
+    public List<StoricoMezzo> findPeriodiServizio(UUID idMezzo) {
+        return em.createQuery("SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = :statoServizio ORDER BY s.dataInizio DESC", StoricoMezzo.class)
+                .setParameter("idMezzo", idMezzo)
+                .setParameter("statoServizio", StatoMezzo.SERVIZIO)
+                .getResultList();
+    }
+
+    public List<StoricoMezzo> findPeriodiManutenzione(UUID idMezzo) {
+        return em.createQuery("SELECT s FROM StoricoMezzo s WHERE s.mezzoDiTrasporto.id_mezzo = :idMezzo AND s.stato = :statoManutenzione ORDER BY s.dataInizio DESC", StoricoMezzo.class)
+                .setParameter("idMezzo", idMezzo)
+                .setParameter("statoManutenzione", StatoMezzo.MANUTENZIONE)
+                .getResultList();
     }
 }

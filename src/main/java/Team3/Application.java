@@ -12,6 +12,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Application {
 
@@ -54,9 +55,13 @@ public class Application {
 //        Tessera t8 = tesseraDao.save(tessera8);
 //        Tessera t9 = tesseraDao.save(tessera9);
 //        Tessera t10 = tesseraDao.save(tessera10);
-//
-//        // ISTANZIARE TESSERE DAL DB NELLE VARIABILI
-//
+
+
+
+
+        // ISTANZIARE TESSERE DAL DB NELLE VARIABILI
+
+
 //        Tessera tessera1FromDb = tesseraDao.findById(t1.getId()
 //                .toString());
 //        Tessera tessera2FromDb = tesseraDao.findById(t2.getId()
@@ -77,9 +82,12 @@ public class Application {
 //                .toString());
 //        Tessera tessera10FromDb = tesseraDao.findById(t10.getId()
 //                .toString());
-//
-//        // OGGETTI UTENTE NON ANCORA MANAGED
-//
+
+
+
+        // OGGETTI UTENTE NON ANCORA MANAGED
+
+
 //        Utente u1 = new Utente("aldo", "baglio", tessera1FromDb);
 //        Utente u2 = new Utente("giovanni", "storti", tessera2FromDb);
 //        Utente u3 = new Utente("giacomo", "poretti", tessera3FromDb);
@@ -90,9 +98,11 @@ public class Application {
 //        Utente u8 = new Utente("morgan", "freeman", tessera8FromDb);
 //        Utente u9 = new Utente("tom", "hanks", tessera9FromDb);
 //        Utente u10 = new Utente("robert", "deniro", tessera10FromDb);
-//
-//        // PERSISTENZA DEGLI UTENTI
-//
+
+
+        // PERSISTENZA DEGLI UTENTI
+
+
 //        Utente user1 = utenteDao.save(u1);
 //        Utente user2 = utenteDao.save(u2);
 //        Utente user3 = utenteDao.save(u3);
@@ -103,9 +113,11 @@ public class Application {
 //        Utente user8 = utenteDao.save(u8);
 //        Utente user9 = utenteDao.save(u9);
 //        Utente user10 = utenteDao.save(u10);
-//
-//        // ISTANZIARE UTENTI DAL DB NELLE VARIABILI
-//
+
+
+        // ISTANZIARE UTENTI DAL DB NELLE VARIABILI
+
+n
 //        Utente u1FromDb = utenteDao.findById(user1.getId()
 //                .toString());
 //        Utente u2FromDb = utenteDao.findById(user1.getId()
@@ -126,6 +138,7 @@ public class Application {
 //                .toString());
 //        Utente u10FromDb = utenteDao.findById(user1.getId()
 //                .toString());
+
 //
 //        // OGGETTI PUNTIdiEMISSIONE NON ANCORA MANAGED
 //
@@ -148,6 +161,29 @@ public class Application {
 //        Rivenditore rivend5 = new Rivenditore("Cafè della Stazione", "Viale dei Mille 9", LocalTime.of(8, 15),
 //                LocalTime.of(20, 30));
 
+
+        // OGGETTI PUNTIdiEMISSIONE NON ANCORA MANAGED
+
+        Distributore distr1 = new Distributore("TicketNapoli_Centrale", StatoDistributore.ATTIVO);
+        Distributore distr2 = new Distributore("TicketMilano_Centrale", StatoDistributore.FUORI_SERVIZIO);
+        Distributore distr3 = new Distributore("MetroRoma_Termini", StatoDistributore.ATTIVO);
+        Distributore distr4 = new Distributore("CinemaFellini_Kiosk", StatoDistributore.FUORI_SERVIZIO);
+        Distributore distr5 = new Distributore("Trenitalia_SelfService", StatoDistributore.ATTIVO);
+        Rivenditore rivend1 = new Rivenditore("Tabaccheria dei Re", "via Maurizio Piscicelli 42", LocalTime.of(8, 0),
+                LocalTime.of(19, 0));
+        Rivenditore rivend2 = new Rivenditore("Edicola Centrale", "Piazza Garibaldi 15", LocalTime.of(6, 30),
+                LocalTime.of(20, 0));
+
+        Rivenditore rivend3 = new Rivenditore("Bar dello Sport", "Corso Vittorio Emanuele 102", LocalTime.of(6, 0),
+                LocalTime.of(21, 0));
+
+        Rivenditore rivend4 = new Rivenditore("Tabacchi e Servizi", "Via Roma 74", LocalTime.of(7, 45),
+                LocalTime.of(19, 30));
+
+        Rivenditore rivend5 = new Rivenditore("Cafè della Stazione", "Viale dei Mille 9", LocalTime.of(8, 15),
+                LocalTime.of(20, 30));
+
+
         // PERSISTENZA DITRIBUTORI e RIVENDITORI
 
 //        PuntoDiEmissione pe1 = puntoEmissioneDao.save(distr1);
@@ -160,9 +196,12 @@ public class Application {
 //        PuntoDiEmissione pe8 = puntoEmissioneDao.save(rivend3);
 //        PuntoDiEmissione pe9 = puntoEmissioneDao.save(rivend4);
 //        PuntoDiEmissione pe10 = puntoEmissioneDao.save(rivend5);
-//
-//        // ISTANZIARE DISTRIBUTORI e RIVENDITORI DAL DB NELLE VARIABILI
-//
+
+
+
+        // ISTANZIARE DISTRIBUTORI e RIVENDITORI DAL DB NELLE VARIABILI
+
+
 //        PuntoDiEmissione dist1FromDb = puntoEmissioneDao.findById(pe1.getId()
 //                .toString());
 //        PuntoDiEmissione dist2FromDb = puntoEmissioneDao.findById(pe2.getId()
@@ -209,9 +248,11 @@ public class Application {
 //        MezzoDiTrasporto m8 = mezzoDao.save(bus3);
 //        MezzoDiTrasporto m9 = mezzoDao.save(bus4);
 //        MezzoDiTrasporto m10 = mezzoDao.save(bus5);
-//
-//        // ISTANZIARE TRAN e BUS DAL DB NELLE VARIABILI
-//
+
+
+        // ISTANZIARE TRAM e BUS DAL DB NELLE VARIABILI
+
+
 //        MezzoDiTrasporto mezzoDiTrasporto1FromDb = mezzoDao.findById(m1.getId_mezzo()
 //                .toString());
 //        MezzoDiTrasporto mezzoDiTrasporto2FromDb = mezzoDao.findById(m2.getId_mezzo()
@@ -257,8 +298,35 @@ public class Application {
 //        Abbonamento abbonamento5 = new Abbonamento(LocalDate.of(2026, 3, 15), riven5FromDb, TipoAbbonamento.MENSILE,
 //                tessera5FromDb, LocalDate.of(2026, 7, 22)); // SCADUTO non valido
 
+
 //        // PERSTISTENZA ABBONAMENTO e BIGLIETTO
 //
+
+//        Biglietto biglietto1 = new Biglietto(LocalDate.of(2026, 5, 10), dist1FromDb, true, null,
+//                mezzoDiTrasporto1FromDb);
+//        Biglietto biglietto2 = new Biglietto(LocalDate.of(2026, 1, 12), riven1FromDb, false, LocalDate.of(2026, 3, 1),
+//                mezzoDiTrasporto2FromDb);
+//        Biglietto biglietto3 = new Biglietto(LocalDate.of(2026, 2, 8), dist2FromDb, false, LocalDate.of(2026, 4, 13),
+//                mezzoDiTrasporto3FromDb);
+//        Biglietto biglietto4 = new Biglietto(LocalDate.of(2026, 4, 2), riven2FromDb, true, null,
+//                mezzoDiTrasporto4FromDb);
+//        Biglietto biglietto5 = new Biglietto(LocalDate.of(2026, 3, 21), riven3FromDb, true, null,
+//                mezzoDiTrasporto5FromDb);
+//        Abbonamento abbonamento1 = new Abbonamento(LocalDate.of(2026, 6, 3), dist3FromDb, TipoAbbonamento.SETTIMANALE,
+//                tessera1FromDb, LocalDate.of(2026, 6, 15)); // Questo sarà SCADUTA
+//        Abbonamento abbonamento2 = new Abbonamento(LocalDate.of(2026, 5, 20), dist4FromDb, TipoAbbonamento.MENSILE,
+//                tessera2FromDb, LocalDate.of(2026, 6, 3)); // Questo sarà SCADUTA
+//        Abbonamento abbonamento3 = new Abbonamento(LocalDate.of(2026, 6, 23), riven4FromDb, TipoAbbonamento
+//                .SETTIMANALE,
+//                tessera3FromDb, LocalDate.of(2026, 7, 12)); // VALIDO non scaduta
+//        Abbonamento abbonamento4 = new Abbonamento(LocalDate.of(2026, 6, 20), dist5FromDb, TipoAbbonamento.MENSILE,
+//                tessera4FromDb, LocalDate.of(2026, 8, 20)); //VALIDO non scaduto
+//        Abbonamento abbonamento5 = new Abbonamento(LocalDate.of(2026, 3, 15), riven5FromDb, TipoAbbonamento.MENSILE,
+//                tessera5FromDb, LocalDate.of(2026, 7, 22)); // SCADUTO non valido
+
+        // PERSTISTENZA ABBONAMENTO e BIGLIETTO
+
+
 //        TitoloViaggio tv1 = titoloViaggioDao.save(biglietto1);
 //        TitoloViaggio tv2 = titoloViaggioDao.save(biglietto2);
 //        TitoloViaggio tv3 = titoloViaggioDao.save(biglietto3);
@@ -269,9 +337,12 @@ public class Application {
 //        TitoloViaggio tv8 = titoloViaggioDao.save(abbonamento3);
 //        TitoloViaggio tv9 = titoloViaggioDao.save(abbonamento4);
 //        TitoloViaggio tv10 = titoloViaggioDao.save(abbonamento5);
-//
-//        // ISTANZIARE BIGLIETTI e ABBONAMENTI DAL DB
-//
+
+
+
+        // ISTANZIARE BIGLIETTI e ABBONAMENTI DAL DB
+
+
 //        TitoloViaggio biglietto1FromDb = titoloViaggioDao.findById(tv1.getId()
 //                .toString());
 //        TitoloViaggio biglietto2FromDb = titoloViaggioDao.findById(tv2.getId()
@@ -318,9 +389,11 @@ public class Application {
 //        Tratta tr8 = trattaDao.save(tratta8);
 //        Tratta tr9 = trattaDao.save(tratta9);
 //        Tratta tr10 = trattaDao.save(tratta10);
-//
-//        // ISTANZIARE TRATTE DAL DB
-//
+
+
+        // ISTANZIARE TRATTE DAL DB
+
+
 //        Tratta tratta1FromDb = trattaDao.findById(tr1.getIdTratta()
 //                .toString());
 //        Tratta tratta2FromDb = trattaDao.findById(tr2.getIdTratta()
@@ -460,6 +533,7 @@ public class Application {
 //        Percorrenza percorrenza10FromDb = percorrenzaDao.findById(per10.getIdPercorrenza()
 //                .toString());
 
+
         // QUERIES
 
         // ABBONAMENTO tramite TesseraID  UTENTE e CONTROLLORE
@@ -505,6 +579,35 @@ public class Application {
 
 //        System.out.println(
 //                titoloViaggioDao.totaleBigliettiVidimatiByDate(LocalDate.of(2026, 1, 1), LocalDate.of(2026, 6, 22)));
+
+
+//        List<StoricoMezzo> periodiManutenzione = storicoMezzoDao.findPeriodiManutenzione(m1.getId_mezzo());
+//
+//        System.out.println("--- PERIODI DI MANUTENZIONE PER IL MEZZO " + m1.getId_mezzo() + " ---");
+//        if (periodiManutenzione.isEmpty()) {
+//            System.out.println("Nessun periodo di manutenzione registrato per questo mezzo.");
+//        } else {
+//            periodiManutenzione.forEach(System.out::println));
+//        }
+
+//        List<StoricoMezzo> periodiManutenzione = storicoMezzoDao.findPeriodiManutenzione(m1.getId_mezzo());
+//
+//        System.out.println("\n--- RISULTATO: PERIODI DI MANUTENZIONE PER IL MEZZO " + m1.getId_mezzo() + " ---");
+//        if (periodiManutenzione.isEmpty()) {
+//            System.out.println("Nessun periodo di manutenzione registrato per questo mezzo.");
+//        } else {
+//            periodiManutenzione.forEach(System.out::println);
+//        }
+
+        /*Long count = mezzoDao.CountTratteByMezzo(
+                m1.getId_mezzo().toString()
+        );
+
+        System.out.println("tratte: " + count);*/
+
+//        System.out.println("prova count mezzi percorrenza");
+//        System.out.println(percorrenzaDao.countNumeroCorse(m1.getId_mezzo(), tr1.getIdTratta()));
+
 
     }
 }
