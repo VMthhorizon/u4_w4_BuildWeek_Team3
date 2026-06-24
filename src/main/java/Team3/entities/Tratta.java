@@ -30,6 +30,18 @@ public class Tratta {
         return idTratta;
     }
 
+    public int getTempoPrevisto() {
+        return tempoPrevisto;
+    }
+
+    public String getZonaCapolinea() {
+        return zonaCapolinea;
+    }
+
+    public String getZonaPartenza() {
+        return zonaPartenza;
+    }
+
     @Override
     public String toString() {
         return "Tratta{" +

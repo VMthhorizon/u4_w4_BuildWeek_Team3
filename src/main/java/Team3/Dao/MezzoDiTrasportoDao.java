@@ -2,6 +2,7 @@ package Team3.Dao;
 
 import Team3.entities.MezzoDiTrasporto;
 import Team3.entities.Tessera;
+import Team3.enums.StatoMezzo;
 import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -55,5 +56,13 @@ public class MezzoDiTrasportoDao {
     public long count() {
         return em.createQuery("SELECT COUNT(t) FROM MezzoDiTrasporto t", Long.class)
                 .getSingleResult();
+    }
+
+    public void cambiaStato(UUID idMezzo, StatoMezzo nuovoStato) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        MezzoDiTrasporto mezzo = em.find(MezzoDiTrasporto.class, idMezzo);
+        mezzo.setStato(nuovoStato);
+        transaction.commit();
     }
 }

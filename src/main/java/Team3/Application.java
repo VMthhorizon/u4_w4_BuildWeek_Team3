@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Application {
 
@@ -182,8 +183,8 @@ public class Application {
 
                         switch (sceltaUtente) {
                             case 1:
-                                TitoloViaggio titoloViaggio = new Biglietto(LocalDate.now(), pe1, false, null, m2);
-                                titoloViaggioDao.save(titoloViaggio);
+                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(1), false, null, mezzo.get(1));
+                                titoloViaggioDao.save(titoloViaggio1);
                                 System.out.println("Biglietto acquistato correttamente");
                                 break;
                             case 2:
@@ -191,7 +192,7 @@ public class Application {
                                 LocalDate inizioAbbonMens = LocalDate.parse(scanner.next());
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
 
-                                TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(), pe1, TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb, inizioAbbonMens);
+                                TitoloViaggio abbonamentoMensile = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(1), TipoAbbonamento.MENSILE, tesseraUtenteRegistratoFromDb, inizioAbbonMens);
                                 titoloViaggioDao.save(abbonamentoMensile);
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoMensile);
                                 break;
@@ -200,7 +201,7 @@ public class Application {
                                 LocalDate inizioAbbonSett = LocalDate.parse(scanner.next());
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(tesseraUtenteRegistrato.getId().toString());
 
-                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), pe1, TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
+                                TitoloViaggio abbonamentoSettimanale = new Abbonamento(LocalDate.now(), puntoDiEmissione.get(1), TipoAbbonamento.SETTIMANALE, tesseraUtenteRegistratoFromDb2, inizioAbbonSett);
                                 titoloViaggioDao.save(abbonamentoSettimanale);
                                 TitoloViaggio abbonamentoSettFromDb = titoloViaggioDao.findById(abbonamentoSettimanale.getId().toString());
                                 System.out.println("Abbonamento acquistato correttamente" + abbonamentoSettFromDb);
@@ -228,6 +229,12 @@ public class Application {
                     String emailAmm = scanner.nextLine();
                     System.out.println("Inserisci password");
                     String pwAmm = scanner.nextLine();
+
+                    if (!emailAmm.equals("amministratore@gmail.com") && !pwAmm.equals(1234)) {
+                        System.out.println("Dati inseriti errati, riprova");
+                        break;
+                    }
+                    System.out.println("Login effettuato con successo");
 
                     do {
                         System.out.println("""
@@ -261,15 +268,136 @@ public class Application {
                                 System.out.println("Inserisci l'id dell'utente");
                                 String idUtente = scanner.nextLine();
                                 Utente utenteNuovoFromDb = utenteDao.findById(idUtente);
-                                Tessera tessera = new Tessera(LocalDate.now(), utenteNuovoFromDb);
+                                Tessera tesseraNuovoUtente = new Tessera(LocalDate.now(), utenteNuovoFromDb);
+                                tesseraDao.save(tesseraNuovoUtente);
+                            case 3:
+                                System.out.println("Inserisci il nome del nuovo distributore");
+                                String nomeDistr = scanner.nextLine();
+
+                                System.out.println("Indica lo stato del distributore\n 1-ATTIVO \n" +
+                                        "2-FUORI_SERVIZIO");
+                                int sceltaTipoDistr = Integer.parseInt(scanner.nextLine());
+                                if (sceltaTipoDistr == 1 || sceltaTipoDistr == 2) {
+                                    Distributore distributore = new Distributore(nomeDistr, StatoDistributore.values()[sceltaTipoDistr - 1]);
+                                    puntoEmissioneDao.save(distributore);
+                                } else {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+                                break;
+                            case 4:
+                                System.out.println("Inserisci il nome del nuovo rivenditore");
+                                String nomeRiven = scanner.nextLine();
+                                System.out.println("Inserisci l'indirizzo");
+                                String indirizzo = scanner.nextLine();
+                                System.out.println("Inserisci l'orario di apertura");
+                                LocalTime apertura = LocalTime.parse(scanner.next());
+                                System.out.println("Inserisci l'orario di chiusura");
+                                LocalTime chiusura = LocalTime.parse(scanner.next());
+
+                                Rivenditore rivenditore = new Rivenditore(nomeRiven, indirizzo, apertura, chiusura);
+                                puntoEmissioneDao.save(rivenditore);
+                                break;
+                            case 5:
+                                System.out.println("Indica la capienza del mezzo");
+                                int capienza = Integer.parseInt(scanner.nextLine());
+                                System.out.println("Indica lo stato del mezzo\n 1-SERVIZIO \n" +
+                                        "2-MANUTENZIONE");
+                                int sceltaStatoMezzo = Integer.parseInt(scanner.nextLine());
+                                if (sceltaStatoMezzo == 1 || sceltaStatoMezzo == 2) {
+                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(StatoMezzo.values()[sceltaStatoMezzo - 1], capienza);
+                                    mezzoDao.save(mezzoDiTrasporto);
+                                } else {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+                                break;
+                            case 6:
+                                System.out.println("Indica la capienza del mezzo");
+                                int capienza2 = Integer.parseInt(scanner.nextLine());
+                                System.out.println("Indica lo stato del mezzo\n 1-SERVIZIO \n" +
+                                        "2-MANUTENZIONE");
+                                int sceltaStatoMezzo2 = Integer.parseInt(scanner.nextLine());
+                                if (sceltaStatoMezzo2 == 1 || sceltaStatoMezzo2 == 2) {
+                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(StatoMezzo.values()[sceltaStatoMezzo2 - 1], capienza2);
+                                    mezzoDao.save(mezzoDiTrasporto);
+                                } else {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+                                break;
+                            case 7:
+                                System.out.println("Insrisci il punto di partenza");
+                                String partenza = scanner.nextLine();
+                                System.out.println("Inserisci il capolinea");
+                                String capolinea = scanner.nextLine();
+                                System.out.println("Inserisci il tempo previsto");
+                                int tPrevisto = Integer.parseInt(scanner.nextLine());
+                                Tratta trattaNuova = new Tratta(partenza, capolinea, tPrevisto);
+                                trattaDao.save(trattaNuova);
+                                break;
+                            case 8:
+                                System.out.println("Scegli una tratta");
+                                for (int i = 0; i < tratta.size(); i++) {
+                                    System.out.println(i + 1 + " Da " + tratta.get(i).getZonaPartenza() + " a " + tratta.get(i).getZonaCapolinea() + ". Tempo previsto: " + tratta.get(i).getTempoPrevisto() + " minuti.");
+                                }
+                                int trattaScelta = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (trattaScelta < 0 || trattaScelta >= tratta.size()) {
+                                    System.out.println("Inserisci un numero valido");
+                                }
+
+                                System.out.println("Scegli un mezzo");
+                                for (int i = 0; i < mezzo.size(); i++) {
+                                    System.out.println(i + 1 + " " + mezzo.get(i));
+                                }
+                                int mezzoScelto = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (mezzoScelto < 0 || mezzoScelto >= mezzo.size()) {
+                                    System.out.println("Inserisci un numero valido");
+                                }
+
+                                System.out.println("Inserisci il tempo effettivo in minuti");
+                                int tEffettivo = Integer.parseInt(scanner.nextLine());
+
+                                System.out.println("Inserisci la data della percorrenza");
+                                LocalDate dataPercor = LocalDate.parse(scanner.next());
+
+                                Percorrenza percorrenza1 = new Percorrenza(tratta.get(trattaScelta), mezzo.get(mezzoScelto), tEffettivo, dataPercor);
+                                percorrenzaDao.save(percorrenza1);
+                                break;
+                            case 9:
+                                System.out.println("Scegli un mezzo");
+                                for (int i = 0; i < mezzo.size(); i++) {
+                                    System.out.println(i + 1 + " " + mezzo.get(i));
+                                }
+                                int mezzoScelto2 = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (mezzoScelto2 < 0 || mezzoScelto2 >= mezzo.size()) {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+
+                                UUID idMezzoFromDb = mezzo.get(mezzoScelto2).getId_mezzo();
+                                mezzoDao.cambiaStato(idMezzoFromDb, StatoMezzo.MANUTENZIONE);
+                                break;
+                            case 10:
+                                System.out.println("Scegli un mezzo");
+                                for (int i = 0; i < mezzo.size(); i++) {
+                                    System.out.println(i + 1 + " " + mezzo.get(i));
+                                }
+                                int mezzoScelto3 = Integer.parseInt(scanner.nextLine()) - 1;
+                                if (mezzoScelto3 < 0 || mezzoScelto3 >= mezzo.size()) {
+                                    System.out.println("Inserisci un numero valido");
+                                    continue;
+                                }
+
+                                UUID idMezzoFromDb2 = mezzo.get(mezzoScelto3).getId_mezzo();
+                                mezzoDao.cambiaStato(idMezzoFromDb2, StatoMezzo.SERVIZIO);
+                                break;
+                            case 11:
+                                break;
                             default:
                                 System.out.println("Scelta non valida");
                         }
-
-
                     } while (sceltaAmm != 0);
-
-
                     break;
                 case 0:
                     System.out.println("Arrivederci!");
@@ -278,7 +406,5 @@ public class Application {
                     System.out.println("Scelta non valida!");
             }
         } while (scelta != 0);
-
-
     }
 }

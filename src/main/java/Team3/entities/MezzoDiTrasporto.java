@@ -34,6 +34,10 @@ public abstract class MezzoDiTrasporto {
         return id_mezzo;
     }
 
+    public void setStato(StatoMezzo stato) {
+        this.stato = stato;
+    }
+
     @Override
     public String toString() {
         return "MezzoDiTrasporto{" +
