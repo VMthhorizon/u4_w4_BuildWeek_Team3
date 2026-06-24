@@ -1,15 +1,10 @@
 package Team3.Dao;
 
-import Team3.entities.MezzoDiTrasporto;
 import Team3.entities.Percorrenza;
-import Team3.entities.StoricoMezzo;
-import Team3.entities.TitoloViaggio;
-import Team3.enums.StatoMezzo;
 import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-import java.util.List;
 import java.util.UUID;
 
 public class PercorrenzaDao {
@@ -50,8 +45,16 @@ public class PercorrenzaDao {
     }
 
     // TEMPO MEDIO EFFETTIVO PERCORRENZA
-    public Double AverageTempoPercorenza(UUID idMezzo, UUID idTratta) {
+    public Double averageTempoPercorenza(UUID idMezzo, UUID idTratta) {
         return entityManager.createQuery("SELECT AVG(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Double.class)
+                .setParameter("idMezzo", idMezzo)
+                .setParameter("idTratta", idTratta)
+                .getSingleResult();
+    }
+
+    // COUNT TEMPO EFFETTIVO PERCORRENZA
+    public Long countTempoEffettivoPercorrenza(UUID idMezzo, UUID idTratta) {
+        return entityManager.createQuery("SELECT SUM(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Long.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
                 .getSingleResult();
