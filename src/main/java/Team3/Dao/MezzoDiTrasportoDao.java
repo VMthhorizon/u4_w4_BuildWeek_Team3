@@ -38,7 +38,7 @@ public class MezzoDiTrasportoDao {
 
     }
 
-    public Long CountTratteByMezzo(String idMezzo) {
+    public Long countTratteByMezzo(String idMezzo) {
 
         return em.createQuery(
                         "SELECT COUNT(DISTINCT p.tratta.idTratta) " +
