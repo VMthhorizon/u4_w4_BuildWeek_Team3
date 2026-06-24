@@ -1,10 +1,12 @@
 package Team3.Dao;
 
 import Team3.entities.MezzoDiTrasporto;
+import Team3.entities.Tessera;
 import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
 import java.util.UUID;
 
 public class MezzoDiTrasportoDao {
@@ -42,6 +44,16 @@ public class MezzoDiTrasportoDao {
 
         return em.createQuery("SELECT COUNT(DISTINCT p.tratta.idTratta) " + "FROM Percorrenza p " + "WHERE p.mezzoDiTrasporto.id_mezzo = :mezzoId", Long.class)
                 .setParameter("mezzoId", UUID.fromString(idMezzo))
+                .getSingleResult();
+    }
+
+    public List<MezzoDiTrasporto> findAll() {
+        return em.createQuery("SELECT t FROM MezzoDiTrasporto t", MezzoDiTrasporto.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return em.createQuery("SELECT COUNT(t) FROM MezzoDiTrasporto t", Long.class)
                 .getSingleResult();
     }
 }
