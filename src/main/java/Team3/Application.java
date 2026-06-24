@@ -1,6 +1,7 @@
 package Team3;
 
 import Team3.Dao.*;
+import Team3.classes.CreateUsers;
 import Team3.entities.*;
 import Team3.enums.StatoDistributore;
 import Team3.enums.StatoMezzo;
@@ -72,6 +73,9 @@ public class Application {
                 .toString());
         Utente u10FromDb = utenteDao.findById(user10.getId()
                 .toString());
+
+        CreateUsers user = new CreateUsers();
+        List<Utente> listUtente = user.createUtente(utenteDao);
 
         // OGGETTI TESSERA ANCORA NON MANAGED
 
