@@ -1,10 +1,12 @@
 package Team3.Dao;
 
 import Team3.entities.Percorrenza;
+import Team3.entities.Tessera;
 import Team3.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
 import java.util.UUID;
 
 public class PercorrenzaDao {
@@ -57,6 +59,16 @@ public class PercorrenzaDao {
         return entityManager.createQuery("SELECT SUM(p.tempoEffettivo) FROM Percorrenza p WHERE p.mezzoDiTrasporto.id_mezzo = :idMezzo AND p.tratta.idTratta = :idTratta", Long.class)
                 .setParameter("idMezzo", idMezzo)
                 .setParameter("idTratta", idTratta)
+                .getSingleResult();
+    }
+
+    public List<Percorrenza> findAll() {
+        return entityManager.createQuery("SELECT t FROM Percorrenza t", Percorrenza.class)
+                .getResultList();
+    }
+
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(t) FROM Percorrenza t", Long.class)
                 .getSingleResult();
     }
 }
