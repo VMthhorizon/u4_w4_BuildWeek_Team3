@@ -349,6 +349,8 @@ public class Application {
 
                                 Tessera tesseraNuovoUtente = new Tessera(LocalDate.now(), utenteNuovoFromDb);
                                 tesseraDao.save(tesseraNuovoUtente);
+                                System.out.println("Tessera emessa con successo");
+                                break;
                             case 3:
                                 System.out.println("Inserisci il nome del nuovo distributore");
                                 String nomeDistr = scanner.nextLine();
@@ -400,7 +402,7 @@ public class Application {
                                         "2-MANUTENZIONE");
                                 int sceltaStatoMezzo2 = Integer.parseInt(scanner.nextLine());
                                 if (sceltaStatoMezzo2 == 1 || sceltaStatoMezzo2 == 2) {
-                                    MezzoDiTrasporto mezzoDiTrasporto = new Autobus(
+                                    MezzoDiTrasporto mezzoDiTrasporto = new Tram(
                                             StatoMezzo.values()[sceltaStatoMezzo2 - 1], capienza2);
                                     mezzoDao.save(mezzoDiTrasporto);
                                 } else {
@@ -429,6 +431,7 @@ public class Application {
                                 int trattaScelta = Integer.parseInt(scanner.nextLine()) - 1;
                                 if (trattaScelta < 0 || trattaScelta >= tratta.size()) {
                                     System.out.println("Inserisci un numero valido");
+                                    continue;
                                 }
 
                                 System.out.println("Scegli un mezzo");
@@ -438,6 +441,7 @@ public class Application {
                                 int mezzoScelto = Integer.parseInt(scanner.nextLine()) - 1;
                                 if (mezzoScelto < 0 || mezzoScelto >= mezzo.size()) {
                                     System.out.println("Inserisci un numero valido");
+                                    continue;
                                 }
 
                                 System.out.println("Inserisci il tempo effettivo in minuti");
