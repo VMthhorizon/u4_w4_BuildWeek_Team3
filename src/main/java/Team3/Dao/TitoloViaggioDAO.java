@@ -43,13 +43,12 @@ public class TitoloViaggioDAO {
 
     // ABBONAMENTO tramite TesseraID  UTENTE e CONTROLLORE
 
-    public Abbonamento abbonamentoByIdTessera(String id) {
-
-        Abbonamento result = entityManager.createQuery("SELECT a FROM Abbonamento a WHERE a.tessera.id = :idTessera",
-                        Abbonamento.class)
+    public List<Abbonamento> abbonamentoByIdTessera(String id) {
+        List<Abbonamento> result = entityManager.createQuery(
+                        "SELECT a FROM Abbonamento a WHERE a.tessera.id = :idTessera", Abbonamento.class)
                 .setParameter("idTessera", UUID.fromString(id))
-                .getSingleResult();
-        if (result == null) throw new NotFoundException("Abbonamento non trovato con l'Id tessera: " + id);
+                .getResultList();
+        if (result.isEmpty()) throw new NotFoundException("Nessun abbonamento trovato con l'Id tessera: " + id);
         return result;
     }
 
