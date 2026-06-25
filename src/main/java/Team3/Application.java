@@ -161,7 +161,7 @@ public class Application {
 
             try {
                 scelta = Integer.parseInt(scanner.nextLine());
-            } catch (NotANumberException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Errore: Inserisci un numero intero valido!");
                 scelta = -1;
                 continue;
@@ -211,7 +211,7 @@ public class Application {
 
                         try {
                             sceltaUtente = Integer.parseInt(scanner.nextLine());
-                        } catch (NotANumberException e) {
+                        } catch (NumberFormatException e) {
                             System.out.println("Errore: Inserisci un numero intero valido!\n");
                             sceltaUtente = -1;
                             continue;
@@ -233,7 +233,7 @@ public class Application {
                                     System.out.print("Inserisci la data (formato AAAA-MM-GG, es. 2026-06-24): ");
                                     try {
                                         inizioAbbonMens = LocalDate.parse(scanner.nextLine());
-                                    } catch (NotADateException e) {
+                                    } catch (java.time.format.DateTimeParseException e) {
                                         System.out.println(
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
@@ -257,7 +257,7 @@ public class Application {
                                     System.out.print("Inserisci la data (formato AAAA-MM-GG, es. 2026-06-24): ");
                                     try {
                                         inizioAbbonSett = LocalDate.parse(scanner.nextLine());
-                                    } catch (NotADateException e) {
+                                    } catch (NumberFormatException e) {
                                         System.out.println(
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
@@ -530,7 +530,7 @@ public class Application {
 
                                     try {
                                         choice = Integer.parseInt(scanner.nextLine());
-                                    } catch (NotANumberException e) {
+                                    } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
                                         choice = -1;
                                         continue;
@@ -548,7 +548,7 @@ public class Application {
                                                     if (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
                                                         System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                                     }
-                                                } catch (NotANumberException e) {
+                                                } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
                                                     mezzoSelezionato = -1;
                                                 }
@@ -570,7 +570,7 @@ public class Application {
                                                     if (mezzoSelezionato1 < 0 || mezzoSelezionato1 >= mezzo.size()) {
                                                         System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                                     }
-                                                } catch (NotANumberException e) {
+                                                } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
                                                     mezzoSelezionato1 = -1;
                                                 }
@@ -585,7 +585,7 @@ public class Application {
                                                 System.out.println("Scegli una data di inizio (formato AAAA-MM-GG, es. 2026-01-01): ");
                                                 try {
                                                     dataInizio = LocalDate.parse(scanner.nextLine());
-                                                } catch (NotADateException e) {
+                                                } catch (java.time.format.DateTimeParseException e) {
                                                     System.out.println("ERRORE! Formato data non valido. Usare il formato: AAAA-MM-GG;\n");
                                                 }
                                             }
@@ -599,7 +599,7 @@ public class Application {
                                                         System.out.println("Errore: La data di fine non può essere precedente alla data di inizio!\n");
                                                         dataFine = null;
                                                     }
-                                                } catch (NotADateException e) {
+                                                } catch (java.time.format.DateTimeParseException e) {
                                                     System.out.println("ERRORE! Formato data non valido. Usare il formato: AAAA-MM-GG;\n");
                                                 }
                                             }
@@ -619,7 +619,7 @@ public class Application {
                                                     if (mezzoSelezionato2 < 0 || mezzoSelezionato2 >= mezzo.size()) {
                                                         System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                                     }
-                                                } catch (NotANumberException e) {
+                                                } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
                                                     mezzoSelezionato2 = -1;
                                                 }
@@ -643,7 +643,7 @@ public class Application {
                                                     if (mezzoSelezionato3 < 0 || mezzoSelezionato3 >= mezzo.size()) {
                                                         System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                                     }
-                                                } catch (NotANumberException e) {
+                                                } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
                                                     mezzoSelezionato3 = -1;
                                                 }
@@ -666,7 +666,7 @@ public class Application {
                                                     if (mezzoSelezionato4 < 0 || mezzoSelezionato4 >= mezzo.size()) {
                                                         System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                                     }
-                                                } catch (NotANumberException e) {
+                                                } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
                                                     mezzoSelezionato4 = -1;
                                                 }
