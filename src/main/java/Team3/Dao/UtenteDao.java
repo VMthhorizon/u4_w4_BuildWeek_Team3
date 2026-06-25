@@ -33,7 +33,6 @@ public class UtenteDao {
 
         Utente utenteFromDb = entityManager.find(Utente.class, UUID.fromString(id));
         if (utenteFromDb == null) throw new NotFoundException("L'utente con id: " + id + " non é stato trovato");
-        System.out.println("L' utente con id: " + id + " é stato trovato");
         return utenteFromDb;
 
     }

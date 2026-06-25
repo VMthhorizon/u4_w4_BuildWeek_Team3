@@ -250,12 +250,14 @@ public class Application {
                                 while (peSelezionato < 0 || peSelezionato >= puntoDiEmissione.size()) {
                                     System.out.println("Scegli un punto di emissione");
                                     for (int i = 0; i < puntoDiEmissione.size(); i++) {
-                                        System.out.println((i + 1) + " " + puntoDiEmissione.get(i).getNome());
+                                        System.out.println((i + 1) + " " + puntoDiEmissione.get(i)
+                                                .getNome());
                                     }
                                     try {
                                         peSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (peSelezionato < 0 || peSelezionato >= puntoDiEmissione.size()) {
-                                            System.out.println("Errore: Numero non valido! Scegli un numero tra 1 e " + puntoDiEmissione.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero non valido! Scegli un numero tra 1 e " + puntoDiEmissione.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -266,15 +268,20 @@ public class Application {
                                 while (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
                                     System.out.println("Scegli un mezzo");
                                     for (int i = 0; i < mezzo.size(); i++) {
-                                        if (mezzo.get(i).getStato() == StatoMezzo.SERVIZIO) {
-                                            System.out.println((i + 1) + " " + mezzo.get(i).getClass().getSimpleName() + " " + mezzo.get(i).getId_mezzo());
+                                        if (mezzo.get(i)
+                                                .getStato() == StatoMezzo.SERVIZIO) {
+                                            System.out.println((i + 1) + " " + mezzo.get(i)
+                                                    .getClass()
+                                                    .getSimpleName() + " " + mezzo.get(i)
+                                                    .getId_mezzo());
                                         }
 
                                     }
                                     try {
                                         mezzoSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
-                                            System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -282,7 +289,8 @@ public class Application {
                                     }
                                 }
 
-                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(peSelezionato),
+                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(),
+                                        puntoDiEmissione.get(peSelezionato),
                                         false, null, mezzo.get(mezzoSelezionato));
                                 titoloViaggioDao.save(titoloViaggio1);
                                 System.out.println("Biglietto acquistato correttamente");
@@ -300,6 +308,10 @@ public class Application {
                                         System.out.println(
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
+                                }
+                                if (inizioAbbonMens.isBefore(LocalDate.now())) {
+                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    break;
                                 }
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
@@ -324,6 +336,10 @@ public class Application {
                                         System.out.println(
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
+                                }
+                                if (inizioAbbonSett.isBefore(LocalDate.now())) {
+                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    break;
                                 }
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
@@ -908,6 +924,11 @@ public class Application {
 
                                             UUID idMezzoFromDatabase = mezzo.get(mezzoSelezionato)
                                                     .getId_mezzo();
+                                            if (storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase)
+                                                    .isEmpty()) {
+                                                System.out.println("Questo non é mai stato in MANUTENZIONE");
+                                                break;
+                                            }
                                             storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase)
                                                     .forEach(System.out::println);
                                             break;
@@ -933,6 +954,11 @@ public class Application {
 
                                             UUID idMezzoFromDatabase1 = mezzo.get(mezzoSelezionato1)
                                                     .getId_mezzo();
+                                            if (storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase1)
+                                                    .isEmpty()) {
+                                                System.out.println("Questo non é mai stato in SERVIZIO");
+                                                break;
+                                            }
                                             storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1)
                                                     .forEach(System.out::println);
                                             break;
@@ -973,9 +999,19 @@ public class Application {
 
                                             long totBigliettiVidimiati = titoloViaggioDao.totaleBigliettiVidimatiByDate(
                                                     dataInizio, dataFine);
-                                            System.out.println(
-                                                    "Sono stati vidimati " + totBigliettiVidimiati + " biglietti dal "
-                                                            + dataInizio + " al " + dataFine);
+                                            if (totBigliettiVidimiati > 1) {
+                                                System.out.println(
+                                                        "Sono stati vidimati " + totBigliettiVidimiati + " biglietti " +
+                                                                "dal "
+                                                                + dataInizio + " al " + dataFine);
+                                            } else if (totBigliettiVidimiati == 0) {
+                                                System.out.println(
+                                                        "Non sono stati VIDIMATI biglietti dal " + dataInizio + " al "
+                                                                + dataFine);
+                                            } else {
+                                                System.out.println(
+                                                        "E' stato VIDIMATO un solo BIGLIETTO");
+                                            }
                                             break;
                                         case 4:
                                             int mezzoSelezionato2 = -1;
@@ -1002,9 +1038,17 @@ public class Application {
                                                     .toString();
                                             Long totBigliettiVidimati = titoloViaggioDao.totaleBigliettiVidimatiByMezzo(
                                                     idMezzoFromDatabase2);
-
-                                            System.out.println("Sono stati VIDIMATI in totale " + totBigliettiVidimati +
-                                                    " biglietti sul mezzo con id: " + idMezzoFromDatabase2);
+                                            if (totBigliettiVidimati > 1) {
+                                                System.out.println(
+                                                        "Sono stati VIDIMATI in totale " + totBigliettiVidimati +
+                                                                " biglietti sul mezzo con id: " + idMezzoFromDatabase2);
+                                            } else if (totBigliettiVidimati == 0) {
+                                                System.out.println(
+                                                        "Non sono stati VIDIMATI biglietti sul mezzo con id: " + idMezzoFromDatabase2);
+                                            } else {
+                                                System.out.println(
+                                                        "E' stato VIDIMATO un solo BIGLIETTO sul mezzo con id: " + idMezzoFromDatabase2);
+                                            }
                                             break;
                                         case 5:
                                             int mezzoSelezionato3 = -1;
@@ -1030,9 +1074,18 @@ public class Application {
                                                     .getId_mezzo()
                                                     .toString();
                                             Long totTratteMezzo = mezzoDao.countTratteByMezzo(idMezzoFromDatabase3);
-
-                                            System.out.println(
-                                                    "Il mezzo con id: " + idMezzoFromDatabase3 + " ha percorso " + totTratteMezzo + " tratte");
+                                            if (totTratteMezzo > 1) {
+                                                System.out.println(
+                                                        "Il mezzo con id: " + idMezzoFromDatabase3 + " ha percorso " + totTratteMezzo + " tratte");
+                                            } else if (totTratteMezzo == 0) {
+                                                System.out.println(
+                                                        "Il mezzo con id: " + idMezzoFromDatabase3 + " non ha " +
+                                                                "percorso TRATTE");
+                                            } else {
+                                                System.out.println(
+                                                        "Il mezzo con id: " + idMezzoFromDatabase3 + " ha percorso " +
+                                                                "UNA SOLA tratta");
+                                            }
                                             break;
                                         case 6:
                                             int mezzoSelezionato4 = -1;
