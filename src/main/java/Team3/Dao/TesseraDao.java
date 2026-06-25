@@ -42,13 +42,18 @@ public class TesseraDao {
     public Tessera setRinnovoTessera(String id, LocalDate data) {
         EntityTransaction t = em.getTransaction();
         t.begin();
-        int righeModificate = em.createQuery("UPDATE Tessera SET dataEmissione = :data WHERE id = :id")
-                .setParameter("id", UUID.fromString(id))
-                .setParameter("data", data)
-                .executeUpdate();
+        Tessera tesseraFromDb = em.find(Tessera.class, UUID.fromString(id));
+
+        tesseraFromDb.setDataEmissione(data);
+        tesseraFromDb.setDataScadenza(data.plusYears(1));
+//        int righeModificate = em.createQuery("UPDATE Tessera SET dataEmissione = :data WHERE id = :id")
+//                .setParameter("id", UUID.fromString(id))
+//                .setParameter("data", data)
+//                .executeUpdate();
+
         t.commit();
         System.out.println("La Tessera è stata rinnovata di un anno da oggi");
-        return em.find(Tessera.class, UUID.fromString(id));
+        return tesseraFromDb;
     }
 
     public List<Tessera> findAll() {
