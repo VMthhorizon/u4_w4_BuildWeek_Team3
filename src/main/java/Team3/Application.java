@@ -13,6 +13,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -508,6 +509,144 @@ public class Application {
                                     }
 
                                 }
+                            case 12:
+                                int choice;
+                                do {
+                                    System.out.println("Quale statistica vuoi conoscere?\n" +
+                                            "Digita 1 per sapere i periodi di MANUTENZIONE di un mezzo\n" +
+                                            "Digita 2 per sapere i periodi di SERVIZIO di un mezzo\n" +
+                                            "Digita 3 per sapere quanti biglitti sono stati VIDIMATI in un certo " +
+                                            "PERIODO\n" +
+                                            "Digita 4 per sapere quanti biglietti sono stati VIDIMATI su un mezzo\n" +
+                                            "Digita 5 per sapere il TOTALE delle TRATTE di un mezzo\n" +
+                                            "Digita 6 per sapere il TEMPO EFFETTIVO TOTALE di un MEZZO su una " +
+                                            "TRATTA\n");
+                                    choice = Integer.parseInt(scanner.nextLine());
+                                    switch (choice) {
+                                        case 1:
+                                            System.out.println("Scegli un mezzo");
+                                            for (int i = 0; i < mezzo.size(); i++) {
+                                                System.out.println(i + 1 + " " + mezzo.get(i));
+                                            }
+                                            int mezzoSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            UUID idMezzoFromDatabase = mezzo.get(mezzoSelezionato)
+                                                    .getId_mezzo();
+                                            storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase)
+                                                    .forEach(
+                                                            System.out::println);
+                                            break;
+                                        case 2:
+                                            System.out.println("Scegli un mezzo");
+                                            for (int i = 0; i < mezzo.size(); i++) {
+                                                System.out.println(i + 1 + " " + mezzo.get(i));
+                                            }
+                                            int mezzoSelezionato1 = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (mezzoSelezionato1 < 0 || mezzoSelezionato1 >= mezzo.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            UUID idMezzoFromDatabase1 = mezzo.get(mezzoSelezionato1)
+                                                    .getId_mezzo();
+                                            storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1)
+                                                    .forEach(
+                                                            System.out::println);
+                                            break;
+                                        case 3:
+                                            try {
+                                                System.out.println("Scegli una data di inizio: ");
+                                                LocalDate dataInizio = LocalDate.parse(scanner.nextLine());
+                                                System.out.println("Scegli una data di fine: ");
+                                                LocalDate dataFine = LocalDate.parse(scanner.nextLine());
+                                                long totBigliettiVidimiati =
+                                                        titoloViaggioDao.totaleBigliettiVidimatiByDate(
+                                                                dataInizio, dataFine);
+                                                System.out.println(
+                                                        "Sono stati vidimati " + totBigliettiVidimiati + " bliglietti" +
+                                                                " dal " + dataInizio + " al " + dataFine);
+
+                                            } catch (DateTimeParseException e) {
+                                                System.out.println(
+                                                        "ERRORE! Usare il formato: YYYY-MM-DD;");
+                                                continue;
+                                            }
+                                            break;
+                                        case 4:
+                                            System.out.println("Scegli un mezzo");
+                                            for (int i = 0; i < mezzo.size(); i++) {
+                                                System.out.println(i + 1 + " " + mezzo.get(i));
+                                            }
+                                            int mezzoSelezionato2 = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (mezzoSelezionato2 < 0 || mezzoSelezionato2 >= mezzo.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            String idMezzoFromDatabase2 = mezzo.get(mezzoSelezionato2)
+                                                    .getId_mezzo()
+                                                    .toString();
+                                            Long totBigliettiVidimati = titoloViaggioDao.totaleBigliettiVidimatiByMezzo(
+                                                    idMezzoFromDatabase2);
+                                            System.out.println(
+                                                    "Sono stati VIDIMATI in totale " + totBigliettiVidimati + " " +
+                                                            "biglietti sul " +
+                                                            "mezzo con id: " + idMezzoFromDatabase2);
+                                            break;
+                                        case 5:
+                                            System.out.println("Scegli un mezzo");
+                                            for (int i = 0; i < mezzo.size(); i++) {
+                                                System.out.println(i + 1 + " " + mezzo.get(i));
+                                            }
+                                            int mezzoSelezionato3 = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (mezzoSelezionato3 < 0 || mezzoSelezionato3 >= mezzo.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            String idMezzoFromDatabase3 = mezzo.get(mezzoSelezionato3)
+                                                    .getId_mezzo()
+                                                    .toString();
+                                            Long totTratteMezzo = mezzoDao.countTratteByMezzo(
+                                                    idMezzoFromDatabase3);
+                                            System.out.println(
+                                                    "Il mezzo con id: " + idMezzoFromDatabase3 + " " +
+                                                            "ha percorso " +
+                                                            totTratteMezzo + " tratte");
+                                            break;
+                                        case 6:
+                                            System.out.println("Scegli un mezzo");
+                                            for (int i = 0; i < mezzo.size(); i++) {
+                                                System.out.println(i + 1 + " " + mezzo.get(i));
+                                            }
+                                            int mezzoSelezionato4 = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (mezzoSelezionato4 < 0 || mezzoSelezionato4 >= mezzo.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            System.out.println("Scegli una tratta");
+                                            for (int i = 0; i < tratta.size(); i++) {
+                                                System.out.println(i + 1 + " " + tratta.get(i));
+                                            }
+                                            int trattaSelezionata = Integer.parseInt(scanner.nextLine()) - 1;
+                                            if (trattaSelezionata < 0 || trattaSelezionata >= tratta.size()) {
+                                                System.out.println("Inserisci un numero valido");
+                                                continue;
+                                            }
+                                            UUID idMezzoFromDatabase4 = mezzo.get(mezzoSelezionato4)
+                                                    .getId_mezzo();
+                                            UUID idTrattaFromDb = tratta.get(trattaSelezionata)
+                                                    .getIdTratta();
+                                            Long totTempoEffettivo = percorrenzaDao.countTempoEffettivoPercorrenza(
+                                                    idMezzoFromDatabase4,
+                                                    idTrattaFromDb);
+                                            System.out.println(
+                                                    "Il mezzo con id: " + idMezzoFromDatabase4 + " sulla tratta " + idTrattaFromDb + " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " minuti");
+                                            break;
+                                        default:
+                                            System.out.println("Scelta non valida");
+                                    }
+                                } while (choice < 1 || choice > 6);
                                 break;
                             default:
                                 System.out.println("Scelta non valida");
