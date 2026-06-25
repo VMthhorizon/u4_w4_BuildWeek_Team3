@@ -6,13 +6,9 @@ import Team3.entities.*;
 import Team3.enums.StatoDistributore;
 import Team3.enums.StatoMezzo;
 import Team3.enums.TipoAbbonamento;
-<<<<<<< Updated upstream
-import Team3.enums.TipoManutenzione;
 import com.github.javafaker.Faker;
-=======
 import Team3.exceptions.NotADateException;
 import Team3.exceptions.NotANumberException;
->>>>>>> Stashed changes
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
