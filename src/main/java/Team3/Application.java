@@ -935,9 +935,14 @@ public class Application {
 
                                             Long totTempoEffettivo = percorrenzaDao.countTempoEffettivoPercorrenza(idMezzoFromDatabase4, idTrattaFromDb);
 
-                                            System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
-                                                    " sulla tratta " + idTrattaFromDb +
-                                                    " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " minuti");
+                                            if (totTempoEffettivo == null) {
+                                                System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
+                                                        " non ha percorrenze registrate sulla tratta " + idTrattaFromDb);
+                                            } else {
+                                                System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
+                                                        " sulla tratta " + idTrattaFromDb +
+                                                        " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " minuti");
+                                            }
                                             break;
                                         default:
                                             System.out.println("Scelta non valida");
