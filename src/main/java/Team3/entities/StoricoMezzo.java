@@ -23,6 +23,7 @@ public class StoricoMezzo {
     @Column(name = "data_fine")
     private LocalDate dataFine;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "causa_manutenzione")
     private TipoManutenzione causaManutenzione;
 

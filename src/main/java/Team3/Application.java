@@ -7,6 +7,7 @@ import Team3.enums.StatoDistributore;
 import Team3.enums.StatoMezzo;
 import Team3.enums.TipoAbbonamento;
 import Team3.enums.TipoManutenzione;
+import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -14,6 +15,7 @@ import jakarta.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -24,6 +26,7 @@ public class Application {
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
+        Faker faker = new Faker(Locale.ITALY);
 
         MezzoDiTrasportoDao mezzoDao = new MezzoDiTrasportoDao(em);
         PercorrenzaDao percorrenzaDao = new PercorrenzaDao(em);
@@ -36,36 +39,36 @@ public class Application {
 
         // UTENTI
         CreateUsers createUsers = new CreateUsers();
-        List<Utente> utenti = createUsers.createUtente(utenteDao);
+        List<Utente> utenti = createUsers.createUtente(utenteDao, faker);
 
         // TESSERE
         CreateTessere createTessere = new CreateTessere();
-        List<Tessera> tessera = createTessere.createTessera(tesseraDao, utenti);
+        List<Tessera> tessera = createTessere.createTessera(tesseraDao, utenti, faker);
 
         // PUNTI DI EMISSIONE
         CreatePuntiDiEmissione createPuntiDiEmissione = new CreatePuntiDiEmissione();
-        List<PuntoDiEmissione> puntoDiEmissione = createPuntiDiEmissione.createPuntiDiEmissione(puntoEmissioneDao);
+        List<PuntoDiEmissione> puntoDiEmissione = createPuntiDiEmissione.createPuntiDiEmissione(puntoEmissioneDao, faker);
 
         // MEZZI
         CreateMezzo createMezzo = new CreateMezzo();
-        List<MezzoDiTrasporto> mezzo = createMezzo.createMezzo(mezzoDao);
+        List<MezzoDiTrasporto> mezzo = createMezzo.createMezzo(mezzoDao, faker);
 
         // TITOLO VIAGGIO
         CreateTitoloViaggio createTitoloViaggio = new CreateTitoloViaggio();
         List<TitoloViaggio> titoloViaggio = createTitoloViaggio.createTitoloViaggio(titoloViaggioDao, puntoDiEmissione,
-                mezzo, tessera);
+                mezzo, tessera, faker);
 
         // TRATTA
         CreateTratta createTratta = new CreateTratta();
-        List<Tratta> tratta = createTratta.createTratta(trattaDao);
+        List<Tratta> tratta = createTratta.createTratta(trattaDao, faker);
 
         // STORICO MEZZI
         CreateStoricoMezzo createStoricoMezzo = new CreateStoricoMezzo();
-        List<StoricoMezzo> storicoMezzo = createStoricoMezzo.createStoricoMezzo(storicoMezzoDao, mezzo);
+        List<StoricoMezzo> storicoMezzo = createStoricoMezzo.createStoricoMezzo(storicoMezzoDao, mezzo, faker);
 
         // PERCORRENZA
         CreatePercorrenza createPercorrenza = new CreatePercorrenza();
-        List<Percorrenza> percorrenza = createPercorrenza.createPercorrenza(percorrenzaDao, tratta, mezzo);
+        List<Percorrenza> percorrenza = createPercorrenza.createPercorrenza(percorrenzaDao, tratta, mezzo, faker);
 
         // QUERIES
 
@@ -506,7 +509,6 @@ public class Application {
                                                             .toString(),
                                                     LocalDate.now());
                                     }
-
                                 }
                                 break;
                             default:
