@@ -198,8 +198,34 @@ public class Application {
 
                     Utente utenteRegistrato = new Utente(nome, cognome);
                     utenteDao.save(utenteRegistrato);
-                    Tessera tesseraUtenteRegistrato = new Tessera(LocalDate.now(), utenteRegistrato);
-                    tesseraDao.save(tesseraUtenteRegistrato);
+                    Tessera tesseraUtenteRegistrato = null;
+
+                    System.out.println(" ");
+                    
+                    int sceltaTessera = -1;
+                    while (sceltaTessera != 1 && sceltaTessera != 2) {
+                        System.out.println("""
+                                Vuoi anche una tessera?
+                                1 - SI
+                                2 - NO
+                                """);
+                        try {
+                            sceltaTessera = Integer.parseInt(scanner.nextLine());
+                            if (sceltaTessera != 1 && sceltaTessera != 2) {
+                                System.out.println("Errore: Inserisci 1 per SI o 2 per NO.\n");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Errore: Inserisci un numero valido (1 o 2)!\n");
+                            sceltaTessera = -1;
+                        }
+                    }
+
+                    if (sceltaTessera == 1) {
+                        tesseraUtenteRegistrato = new Tessera(LocalDate.now(), utenteRegistrato);
+                        tesseraDao.save(tesseraUtenteRegistrato);
+                    } else {
+                        System.out.println("Registrazione completata senza emissione di tessera.");
+                    }
                     do {
                         System.out.println(" ");
                         System.out.println("""
