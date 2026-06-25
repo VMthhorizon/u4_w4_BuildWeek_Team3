@@ -283,6 +283,10 @@ public class Application {
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
                                 }
+                                if (inizioAbbonMens.isBefore(LocalDate.now())) {
+                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    break;
+                                }
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
                                                 .toString());
@@ -306,6 +310,10 @@ public class Application {
                                         System.out.println(
                                                 "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).");
                                     }
+                                }
+                                if (inizioAbbonSett.isBefore(LocalDate.now())) {
+                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    break;
                                 }
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(
                                         tesseraUtenteRegistrato.getId()
