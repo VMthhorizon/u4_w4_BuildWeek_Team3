@@ -217,9 +217,44 @@ public class Application {
                         }
                         switch (sceltaUtente) {
                             case 1:
+                                int peSelezionato = -1;
+                                while (peSelezionato < 0 || peSelezionato >= puntoDiEmissione.size()) {
+                                    System.out.println("Scegli un punto di emissione");
+                                    for (int i = 0; i < puntoDiEmissione.size(); i++) {
+                                        System.out.println((i + 1) + " " + puntoDiEmissione.get(i).getNome());
+                                    }
+                                    try {
+                                        peSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
+                                        if (peSelezionato < 0 || peSelezionato >= puntoDiEmissione.size()) {
+                                            System.out.println("Errore: Numero non valido! Scegli un numero tra 1 e " + puntoDiEmissione.size() + ".\n");
+                                        }
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("Errore: Inserisci un numero intero valido!\n");
+                                        peSelezionato = -1;
+                                    }
+                                }
+                                int mezzoSelezionato = -1;
+                                while (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
+                                    System.out.println("Scegli un mezzo");
+                                    for (int i = 0; i < mezzo.size(); i++) {
+                                        if (mezzo.get(i).getStato() == StatoMezzo.SERVIZIO) {
+                                            System.out.println((i + 1) + " " + mezzo.get(i).getClass().getSimpleName() + " " + mezzo.get(i).getId_mezzo());
+                                        }
 
-                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(1),
-                                        false, null, mezzo.get(1));
+                                    }
+                                    try {
+                                        mezzoSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
+                                        if (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
+                                            System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                        }
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("Errore: Inserisci un numero intero valido!\n");
+                                        mezzoSelezionato = -1;
+                                    }
+                                }
+
+                                TitoloViaggio titoloViaggio1 = new Biglietto(LocalDate.now(), puntoDiEmissione.get(peSelezionato),
+                                        false, null, mezzo.get(mezzoSelezionato));
                                 titoloViaggioDao.save(titoloViaggio1);
                                 System.out.println("Biglietto acquistato correttamente");
                                 break;
