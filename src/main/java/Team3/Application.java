@@ -48,7 +48,8 @@ public class Application {
 
         // PUNTI DI EMISSIONE
         CreatePuntiDiEmissione createPuntiDiEmissione = new CreatePuntiDiEmissione();
-        List<PuntoDiEmissione> puntoDiEmissione = createPuntiDiEmissione.createPuntiDiEmissione(puntoEmissioneDao, faker);
+        List<PuntoDiEmissione> puntoDiEmissione = createPuntiDiEmissione.createPuntiDiEmissione(puntoEmissioneDao,
+                faker);
 
         // MEZZI
         CreateMezzo createMezzo = new CreateMezzo();
@@ -187,6 +188,7 @@ public class Application {
                     while (cognome.trim()
                             .isEmpty()) {
                         System.out.print("cognome: ");
+                        System.out.println("");
                         cognome = scanner.nextLine();
                         if (cognome.trim()
                                 .isEmpty()) {
@@ -199,6 +201,7 @@ public class Application {
                     Tessera tesseraUtenteRegistrato = new Tessera(LocalDate.now(), utenteRegistrato);
                     tesseraDao.save(tesseraUtenteRegistrato);
                     do {
+                        System.out.println(" ");
                         System.out.println("""
                                 1. Acquista biglietto
                                 2. Acquista abbonamento mensile
@@ -341,19 +344,23 @@ public class Application {
                     System.out.println("Area Amministratore");
 
                     String emailAmm = "";
-                    while (emailAmm.trim().isEmpty()) {
+                    while (emailAmm.trim()
+                            .isEmpty()) {
                         System.out.println("Inserisci email:");
                         emailAmm = scanner.nextLine();
-                        if (emailAmm.trim().isEmpty()) {
+                        if (emailAmm.trim()
+                                .isEmpty()) {
                             System.out.println("Errore: L'email non può essere vuota!");
                         }
                     }
 
                     String pwAmm = "";
-                    while (pwAmm.trim().isEmpty()) {
+                    while (pwAmm.trim()
+                            .isEmpty()) {
                         System.out.println("Inserisci password:");
                         pwAmm = scanner.nextLine();
-                        if (pwAmm.trim().isEmpty()) {
+                        if (pwAmm.trim()
+                                .isEmpty()) {
                             System.out.println("Errore: La password non può essere vuota!");
                         }
                     }
@@ -392,19 +399,23 @@ public class Application {
                         switch (sceltaAmm) {
                             case 1:
                                 String nomeNuovo = "";
-                                while (nomeNuovo.trim().isEmpty()) {
+                                while (nomeNuovo.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il nome dell'utente da registrare:");
                                     nomeNuovo = scanner.nextLine();
-                                    if (nomeNuovo.trim().isEmpty()) {
+                                    if (nomeNuovo.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il nome non può essere vuoto!");
                                     }
                                 }
 
                                 String cognomeNuovo = "";
-                                while (cognomeNuovo.trim().isEmpty()) {
+                                while (cognomeNuovo.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il cognome dell'utente da registrare:");
                                     cognomeNuovo = scanner.nextLine();
-                                    if (cognomeNuovo.trim().isEmpty()) {
+                                    if (cognomeNuovo.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il cognome non può essere vuoto!");
                                     }
                                 }
@@ -416,10 +427,12 @@ public class Application {
                                 break;
                             case 2:
                                 String idUtente = "";
-                                while (idUtente.trim().isEmpty()) {
+                                while (idUtente.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci l'id dell'utente:");
                                     idUtente = scanner.nextLine();
-                                    if (idUtente.trim().isEmpty()) {
+                                    if (idUtente.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: L'ID non può essere vuoto!");
                                     }
                                 }
@@ -433,14 +446,17 @@ public class Application {
 
                                 Tessera tesseraNuovoUtente = new Tessera(LocalDate.now(), utenteNuovoFromDb);
                                 tesseraDao.save(tesseraNuovoUtente);
-                                System.out.println("Tessera emessa con successo per l'utente " + utenteNuovoFromDb.getNome());
+                                System.out.println(
+                                        "Tessera emessa con successo per l'utente " + utenteNuovoFromDb.getNome());
                                 break;
                             case 3:
                                 String nomeDistr = "";
-                                while (nomeDistr.trim().isEmpty()) {
+                                while (nomeDistr.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il nome del nuovo distributore:");
                                     nomeDistr = scanner.nextLine();
-                                    if (nomeDistr.trim().isEmpty()) {
+                                    if (nomeDistr.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il nome non può essere vuoto!");
                                     }
                                 }
@@ -470,19 +486,23 @@ public class Application {
                                 break;
                             case 4:
                                 String nomeRiven = "";
-                                while (nomeRiven.trim().isEmpty()) {
+                                while (nomeRiven.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il nome del nuovo rivenditore:");
                                     nomeRiven = scanner.nextLine();
-                                    if (nomeRiven.trim().isEmpty()) {
+                                    if (nomeRiven.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il nome non può essere vuoto!");
                                     }
                                 }
 
                                 String indirizzo = "";
-                                while (indirizzo.trim().isEmpty()) {
+                                while (indirizzo.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci l'indirizzo:");
                                     indirizzo = scanner.nextLine();
-                                    if (indirizzo.trim().isEmpty()) {
+                                    if (indirizzo.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: L'indirizzo non può essere vuoto!");
                                     }
                                 }
@@ -493,7 +513,8 @@ public class Application {
                                     try {
                                         apertura = LocalTime.parse(scanner.nextLine());
                                     } catch (java.time.format.DateTimeParseException e) {
-                                        System.out.println("Errore: Formato orario non valido! Usa il formato 24 ore (HH:MM).");
+                                        System.out.println(
+                                                "Errore: Formato orario non valido! Usa il formato 24 ore (HH:MM).");
                                     }
                                 }
 
@@ -503,7 +524,8 @@ public class Application {
                                     try {
                                         chiusura = LocalTime.parse(scanner.nextLine());
                                     } catch (java.time.format.DateTimeParseException e) {
-                                        System.out.println("Errore: Formato orario non valido! Usa il formato 24 ore (HH:MM).");
+                                        System.out.println(
+                                                "Errore: Formato orario non valido! Usa il formato 24 ore (HH:MM).");
                                     }
                                 }
 
@@ -589,19 +611,23 @@ public class Application {
                                 break;
                             case 7:
                                 String partenza = "";
-                                while (partenza.trim().isEmpty()) {
+                                while (partenza.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il punto di partenza:");
                                     partenza = scanner.nextLine();
-                                    if (partenza.trim().isEmpty()) {
+                                    if (partenza.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il punto di partenza non può essere vuoto!");
                                     }
                                 }
 
                                 String capolinea = "";
-                                while (capolinea.trim().isEmpty()) {
+                                while (capolinea.trim()
+                                        .isEmpty()) {
                                     System.out.println("Inserisci il capolinea:");
                                     capolinea = scanner.nextLine();
-                                    if (capolinea.trim().isEmpty()) {
+                                    if (capolinea.trim()
+                                            .isEmpty()) {
                                         System.out.println("Errore: Il capolinea non può essere vuoto!");
                                     }
                                 }
@@ -612,7 +638,8 @@ public class Application {
                                     try {
                                         tPrevisto = Integer.parseInt(scanner.nextLine());
                                         if (tPrevisto <= 0) {
-                                            System.out.println("Errore: Il tempo previsto deve essere maggiore di 0.\n");
+                                            System.out.println(
+                                                    "Errore: Il tempo previsto deve essere maggiore di 0.\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -629,14 +656,18 @@ public class Application {
                                 while (trattaScelta < 0 || trattaScelta >= tratta.size()) {
                                     System.out.println("Scegli una tratta:");
                                     for (int i = 0; i < tratta.size(); i++) {
-                                        System.out.println((i + 1) + " Da " + tratta.get(i).getZonaPartenza() +
-                                                " a " + tratta.get(i).getZonaCapolinea() +
-                                                ". Tempo previsto: " + tratta.get(i).getTempoPrevisto() + " minuti.");
+                                        System.out.println((i + 1) + " Da " + tratta.get(i)
+                                                .getZonaPartenza() +
+                                                " a " + tratta.get(i)
+                                                .getZonaCapolinea() +
+                                                ". Tempo previsto: " + tratta.get(i)
+                                                .getTempoPrevisto() + " minuti.");
                                     }
                                     try {
                                         trattaScelta = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (trattaScelta < 0 || trattaScelta >= tratta.size()) {
-                                            System.out.println("Errore: Numero tratta non valido! Scegli un numero tra 1 e " + tratta.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero tratta non valido! Scegli un numero tra 1 e " + tratta.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -653,7 +684,8 @@ public class Application {
                                     try {
                                         mezzoScelto = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (mezzoScelto < 0 || mezzoScelto >= mezzo.size()) {
-                                            System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -667,7 +699,8 @@ public class Application {
                                     try {
                                         tEffettivo = Integer.parseInt(scanner.nextLine());
                                         if (tEffettivo <= 0) {
-                                            System.out.println("Errore: Il tempo effettivo deve essere maggiore di 0.\n");
+                                            System.out.println(
+                                                    "Errore: Il tempo effettivo deve essere maggiore di 0.\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -677,11 +710,14 @@ public class Application {
 
                                 LocalDate dataPercor = null;
                                 while (dataPercor == null) {
-                                    System.out.println("Inserisci la data della percorrenza (formato AAAA-MM-GG, es. 2026-06-25):");
+                                    System.out.println(
+                                            "Inserisci la data della percorrenza (formato AAAA-MM-GG, es. 2026-06-25)" +
+                                                    ":");
                                     try {
                                         dataPercor = LocalDate.parse(scanner.nextLine());
                                     } catch (java.time.format.DateTimeParseException e) {
-                                        System.out.println("Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).\n");
+                                        System.out.println(
+                                                "Errore: Formato data non valido! Usa il formato ISO (AAAA-MM-GG).\n");
                                     }
                                 }
 
@@ -691,6 +727,7 @@ public class Application {
                                 System.out.println("Percorrenza registrata con successo!");
                                 break;
                             case 9:
+
                                 int mezzoScelto2 = -1;
                                 while (mezzoScelto2 < 0 || mezzoScelto2 >= mezzo.size()) {
                                     System.out.println("Scegli un mezzo da mettere in manutenzione:");
@@ -700,7 +737,8 @@ public class Application {
                                     try {
                                         mezzoScelto2 = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (mezzoScelto2 < 0 || mezzoScelto2 >= mezzo.size()) {
-                                            System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -708,7 +746,8 @@ public class Application {
                                     }
                                 }
 
-                                UUID idMezzoFromDb = mezzo.get(mezzoScelto2).getId_mezzo();
+                                UUID idMezzoFromDb = mezzo.get(mezzoScelto2)
+                                        .getId_mezzo();
                                 mezzoDao.cambiaStato(idMezzoFromDb, StatoMezzo.MANUTENZIONE);
                                 System.out.println("Stato del mezzo aggiornato in MANUTENZIONE.");
                                 break;
@@ -722,7 +761,8 @@ public class Application {
                                     try {
                                         mezzoScelto3 = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (mezzoScelto3 < 0 || mezzoScelto3 >= mezzo.size()) {
-                                            System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -730,7 +770,8 @@ public class Application {
                                     }
                                 }
 
-                                UUID idMezzoFromDb2 = mezzo.get(mezzoScelto3).getId_mezzo();
+                                UUID idMezzoFromDb2 = mezzo.get(mezzoScelto3)
+                                        .getId_mezzo();
                                 mezzoDao.cambiaStato(idMezzoFromDb2, StatoMezzo.SERVIZIO);
                                 System.out.println("Stato del mezzo aggiornato in SERVIZIO.");
                                 break;
@@ -745,7 +786,8 @@ public class Application {
                                     try {
                                         tesseraScelta = Integer.parseInt(scanner.nextLine()) - 1;
                                         if (tesseraScelta < 0 || tesseraScelta >= tessera.size()) {
-                                            System.out.println("Errore: Numero tessera non valido! Scegli un numero tra 1 e " + tessera.size() + ".\n");
+                                            System.out.println(
+                                                    "Errore: Numero tessera non valido! Scegli un numero tra 1 e " + tessera.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -754,8 +796,10 @@ public class Application {
                                 }
 
                                 Tessera tesseraSelezionata = tessera.get(tesseraScelta);
-                                if (tesseraSelezionata.getDataScadenza().isBefore(LocalDate.now())) {
-                                    System.out.println("La tessera selezionata è SCADUTA il: " + tesseraSelezionata.getDataScadenza());
+                                if (tesseraSelezionata.getDataScadenza()
+                                        .isBefore(LocalDate.now())) {
+                                    System.out.println(
+                                            "La tessera selezionata è SCADUTA il: " + tesseraSelezionata.getDataScadenza());
 
                                     int sceltaRinnovo = -1;
                                     while (sceltaRinnovo != 1 && sceltaRinnovo != 2) {
@@ -776,9 +820,12 @@ public class Application {
                                     }
 
                                     if (sceltaRinnovo == 1) {
-                                        Tessera tesseraFromDb = tesseraDao.findById(tesseraSelezionata.getId().toString());
+                                        Tessera tesseraFromDb = tesseraDao.findById(tesseraSelezionata.getId()
+                                                .toString());
                                         if (tesseraFromDb != null) {
-                                            Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(tesseraFromDb.getId().toString(), LocalDate.now());
+                                            Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(
+                                                    tesseraFromDb.getId()
+                                                            .toString(), LocalDate.now());
                                             System.out.println("Operazione completata con successo.");
                                         } else {
                                             System.out.println("Errore: Impossibile trovare la tessera nel Database.");
@@ -788,7 +835,8 @@ public class Application {
                                     }
 
                                 } else {
-                                    System.out.println("La tessera è REGOLARE. Scade il: " + tesseraSelezionata.getDataScadenza());
+                                    System.out.println(
+                                            "La tessera è REGOLARE. Scade il: " + tesseraSelezionata.getDataScadenza());
                                 }
                                 break;
                             case 12:
@@ -822,7 +870,9 @@ public class Application {
                                                 try {
                                                     mezzoSelezionato = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (mezzoSelezionato < 0 || mezzoSelezionato >= mezzo.size()) {
-                                                        System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero mezzo non valido! Scegli un numero " +
+                                                                        "tra 1 e " + mezzo.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -830,7 +880,8 @@ public class Application {
                                                 }
                                             }
 
-                                            UUID idMezzoFromDatabase = mezzo.get(mezzoSelezionato).getId_mezzo();
+                                            UUID idMezzoFromDatabase = mezzo.get(mezzoSelezionato)
+                                                    .getId_mezzo();
                                             storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase)
                                                     .forEach(System.out::println);
                                             break;
@@ -844,7 +895,9 @@ public class Application {
                                                 try {
                                                     mezzoSelezionato1 = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (mezzoSelezionato1 < 0 || mezzoSelezionato1 >= mezzo.size()) {
-                                                        System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero mezzo non valido! Scegli un numero " +
+                                                                        "tra 1 e " + mezzo.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -852,36 +905,51 @@ public class Application {
                                                 }
                                             }
 
-                                            UUID idMezzoFromDatabase1 = mezzo.get(mezzoSelezionato1).getId_mezzo();
-                                            storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1).forEach(System.out::println);
+                                            UUID idMezzoFromDatabase1 = mezzo.get(mezzoSelezionato1)
+                                                    .getId_mezzo();
+                                            storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1)
+                                                    .forEach(System.out::println);
                                             break;
                                         case 3:
                                             LocalDate dataInizio = null;
                                             while (dataInizio == null) {
-                                                System.out.println("Scegli una data di inizio (formato AAAA-MM-GG, es. 2026-01-01): ");
+                                                System.out.println(
+                                                        "Scegli una data di inizio (formato AAAA-MM-GG, es. " +
+                                                                "2026-01-01): ");
                                                 try {
                                                     dataInizio = LocalDate.parse(scanner.nextLine());
                                                 } catch (java.time.format.DateTimeParseException e) {
-                                                    System.out.println("ERRORE! Formato data non valido. Usare il formato: AAAA-MM-GG;\n");
+                                                    System.out.println(
+                                                            "ERRORE! Formato data non valido. Usare il formato: " +
+                                                                    "AAAA-MM-GG;\n");
                                                 }
                                             }
 
                                             LocalDate dataFine = null;
                                             while (dataFine == null) {
-                                                System.out.println("Scegli una data di fine (formato AAAA-MM-GG, es. 2026-12-31): ");
+                                                System.out.println(
+                                                        "Scegli una data di fine (formato AAAA-MM-GG, es. 2026-12-31)" +
+                                                                ": ");
                                                 try {
                                                     dataFine = LocalDate.parse(scanner.nextLine());
                                                     if (dataFine.isBefore(dataInizio)) {
-                                                        System.out.println("Errore: La data di fine non può essere precedente alla data di inizio!\n");
+                                                        System.out.println(
+                                                                "Errore: La data di fine non può essere precedente " +
+                                                                        "alla data di inizio!\n");
                                                         dataFine = null;
                                                     }
                                                 } catch (java.time.format.DateTimeParseException e) {
-                                                    System.out.println("ERRORE! Formato data non valido. Usare il formato: AAAA-MM-GG;\n");
+                                                    System.out.println(
+                                                            "ERRORE! Formato data non valido. Usare il formato: " +
+                                                                    "AAAA-MM-GG;\n");
                                                 }
                                             }
 
-                                            long totBigliettiVidimiati = titoloViaggioDao.totaleBigliettiVidimatiByDate(dataInizio, dataFine);
-                                            System.out.println("Sono stati vidimati " + totBigliettiVidimiati + " biglietti dal " + dataInizio + " al " + dataFine);
+                                            long totBigliettiVidimiati = titoloViaggioDao.totaleBigliettiVidimatiByDate(
+                                                    dataInizio, dataFine);
+                                            System.out.println(
+                                                    "Sono stati vidimati " + totBigliettiVidimiati + " biglietti dal "
+                                                            + dataInizio + " al " + dataFine);
                                             break;
                                         case 4:
                                             int mezzoSelezionato2 = -1;
@@ -893,7 +961,9 @@ public class Application {
                                                 try {
                                                     mezzoSelezionato2 = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (mezzoSelezionato2 < 0 || mezzoSelezionato2 >= mezzo.size()) {
-                                                        System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero mezzo non valido! Scegli un numero " +
+                                                                        "tra 1 e " + mezzo.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -901,8 +971,11 @@ public class Application {
                                                 }
                                             }
 
-                                            String idMezzoFromDatabase2 = mezzo.get(mezzoSelezionato2).getId_mezzo().toString();
-                                            Long totBigliettiVidimati = titoloViaggioDao.totaleBigliettiVidimatiByMezzo(idMezzoFromDatabase2);
+                                            String idMezzoFromDatabase2 = mezzo.get(mezzoSelezionato2)
+                                                    .getId_mezzo()
+                                                    .toString();
+                                            Long totBigliettiVidimati = titoloViaggioDao.totaleBigliettiVidimatiByMezzo(
+                                                    idMezzoFromDatabase2);
 
                                             System.out.println("Sono stati VIDIMATI in totale " + totBigliettiVidimati +
                                                     " biglietti sul mezzo con id: " + idMezzoFromDatabase2);
@@ -917,7 +990,9 @@ public class Application {
                                                 try {
                                                     mezzoSelezionato3 = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (mezzoSelezionato3 < 0 || mezzoSelezionato3 >= mezzo.size()) {
-                                                        System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero mezzo non valido! Scegli un numero " +
+                                                                        "tra 1 e " + mezzo.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -925,10 +1000,13 @@ public class Application {
                                                 }
                                             }
 
-                                            String idMezzoFromDatabase3 = mezzo.get(mezzoSelezionato3).getId_mezzo().toString();
+                                            String idMezzoFromDatabase3 = mezzo.get(mezzoSelezionato3)
+                                                    .getId_mezzo()
+                                                    .toString();
                                             Long totTratteMezzo = mezzoDao.countTratteByMezzo(idMezzoFromDatabase3);
 
-                                            System.out.println("Il mezzo con id: " + idMezzoFromDatabase3 + " ha percorso " + totTratteMezzo + " tratte");
+                                            System.out.println(
+                                                    "Il mezzo con id: " + idMezzoFromDatabase3 + " ha percorso " + totTratteMezzo + " tratte");
                                             break;
                                         case 6:
                                             int mezzoSelezionato4 = -1;
@@ -940,7 +1018,9 @@ public class Application {
                                                 try {
                                                     mezzoSelezionato4 = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (mezzoSelezionato4 < 0 || mezzoSelezionato4 >= mezzo.size()) {
-                                                        System.out.println("Errore: Numero mezzo non valido! Scegli un numero tra 1 e " + mezzo.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero mezzo non valido! Scegli un numero " +
+                                                                        "tra 1 e " + mezzo.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -957,7 +1037,9 @@ public class Application {
                                                 try {
                                                     trattaSelezionata = Integer.parseInt(scanner.nextLine()) - 1;
                                                     if (trattaSelezionata < 0 || trattaSelezionata >= tratta.size()) {
-                                                        System.out.println("Errore: Numero tratta non valido! Scegli un numero tra 1 e " + tratta.size() + ".\n");
+                                                        System.out.println(
+                                                                "Errore: Numero tratta non valido! Scegli un numero " +
+                                                                        "tra 1 e " + tratta.size() + ".\n");
                                                     }
                                                 } catch (NumberFormatException e) {
                                                     System.out.println("Errore: Inserisci un numero intero valido!\n");
@@ -965,19 +1047,24 @@ public class Application {
                                                 }
                                             }
 
-                                            UUID idMezzoFromDatabase4 = mezzo.get(mezzoSelezionato4).getId_mezzo();
-                                            UUID idTrattaFromDb = tratta.get(trattaSelezionata).getIdTratta();
+                                            UUID idMezzoFromDatabase4 = mezzo.get(mezzoSelezionato4)
+                                                    .getId_mezzo();
+                                            UUID idTrattaFromDb = tratta.get(trattaSelezionata)
+                                                    .getIdTratta();
 
-                                            Long totTempoEffettivo = percorrenzaDao.countTempoEffettivoPercorrenza(idMezzoFromDatabase4, idTrattaFromDb);
+                                            Long totTempoEffettivo = percorrenzaDao.countTempoEffettivoPercorrenza(
+                                                    idMezzoFromDatabase4, idTrattaFromDb);
 
                                             System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
                                                     " sulla tratta " + idTrattaFromDb +
-                                                    " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " minuti");
+                                                    " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " " +
+                                                    "minuti");
                                             break;
                                         default:
                                             System.out.println("Scelta non valida");
                                     }
-                                } while (choice < 1 || choice > 6); //while (choice != 0); Il ciclo continua finché non digita 0, sennò ogni volta per vedere due statistiche devo ricominciare da capo
+                                } while (choice < 1 || choice > 6); //while (choice != 0); Il ciclo continua finché
+                                // non digita 0, sennò ogni volta per vedere due statistiche devo ricominciare da capo
                                 break;
                             default:
                                 System.out.println("Scelta non valida");
