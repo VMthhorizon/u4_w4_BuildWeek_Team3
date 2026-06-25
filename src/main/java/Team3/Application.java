@@ -371,9 +371,9 @@ public class Application {
                                 System.out.println("Inserisci l'indirizzo");
                                 String indirizzo = scanner.nextLine();
                                 System.out.println("Inserisci l'orario di apertura");
-                                LocalTime apertura = LocalTime.parse(scanner.nextLine());
+                                LocalTime apertura = LocalTime.parse(scanner.next());
                                 System.out.println("Inserisci l'orario di chiusura");
-                                LocalTime chiusura = LocalTime.parse(scanner.nextLine());
+                                LocalTime chiusura = LocalTime.parse(scanner.next());
 
                                 Rivenditore rivenditore = new Rivenditore(nomeRiven, indirizzo, apertura, chiusura);
                                 puntoEmissioneDao.save(rivenditore);
@@ -444,7 +444,7 @@ public class Application {
                                 int tEffettivo = Integer.parseInt(scanner.nextLine());
 
                                 System.out.println("Inserisci la data della percorrenza");
-                                LocalDate dataPercor = LocalDate.parse(scanner.nextLine());
+                                LocalDate dataPercor = LocalDate.parse(scanner.next());
 
                                 Percorrenza percorrenza1 = new Percorrenza(tratta.get(trattaScelta),
                                         mezzo.get(mezzoScelto), tEffettivo, dataPercor);
