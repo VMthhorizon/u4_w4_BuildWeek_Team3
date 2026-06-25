@@ -188,6 +188,7 @@ public class Application {
                     while (cognome.trim()
                             .isEmpty()) {
                         System.out.print("cognome: ");
+                        System.out.println("");
                         cognome = scanner.nextLine();
                         if (cognome.trim()
                                 .isEmpty()) {
@@ -200,6 +201,7 @@ public class Application {
                     Tessera tesseraUtenteRegistrato = new Tessera(LocalDate.now(), utenteRegistrato);
                     tesseraDao.save(tesseraUtenteRegistrato);
                     do {
+                        System.out.println(" ");
                         System.out.println("""
                                 1. Acquista biglietto
                                 2. Acquista abbonamento mensile
