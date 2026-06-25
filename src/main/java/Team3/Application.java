@@ -495,20 +495,21 @@ public class Application {
                                         .getDataScadenza()
                                         .isBefore(LocalDate.now())) {
                                     System.out.println("Vuoi rinnovare la tessera?");
-                                    System.out.println("Digita 1 se SI\n Digita 2 se NO");
+                                    System.out.println("Digita 1 se SI\n Digita 0 per tornare indietro");
                                     int sceltaRinnovo = Integer.parseInt(scanner.nextLine());
-                                    switch (sceltaRinnovo) {
-                                        case 1:
-                                            Tessera tesseraFromDb = tesseraDao.findById(tessera.get(tesseraScelta)
-                                                    .getId()
-                                                    .toString());
-                                            Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(
-                                                    tesseraFromDb.getId()
-                                                            .toString(),
-                                                    LocalDate.now());
-                                    }
-
+                                    if (sceltaRinnovo != 0 && sceltaRinnovo != 1)
+                                        System.out.println("Input non valido!");
+                                    Tessera tesseraFromDb = tesseraDao.findById(tessera.get(tesseraScelta)
+                                            .getId()
+                                            .toString());
+                                    Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(
+                                            tesseraFromDb.getId()
+                                                    .toString(),
+                                            LocalDate.now());
+                                    System.out.println("La tessera é stata rinnovata con successo:\n"
+                                            + tesseraRinnovata);
                                 }
+                                break;
                             case 12:
                                 int choice;
                                 do {
