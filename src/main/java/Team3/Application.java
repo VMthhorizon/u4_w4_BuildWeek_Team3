@@ -427,7 +427,7 @@ public class Application {
                                 8. Registra percorrenza
                                 9. Metti mezzo in manutenzione
                                 10. Riattiva mezzo
-                                11. Controllo tessera
+                                11. Controllo e Rinnovo tessera
                                 12. Statistiche
                                 0. Torna indietro
                                 """);
