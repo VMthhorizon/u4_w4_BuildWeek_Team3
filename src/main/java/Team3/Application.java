@@ -201,7 +201,7 @@ public class Application {
                     Tessera tesseraUtenteRegistrato = null;
 
                     System.out.println(" ");
-                    
+
                     int sceltaTessera = -1;
                     while (sceltaTessera != 1 && sceltaTessera != 2) {
                         System.out.println("""
@@ -310,7 +310,8 @@ public class Application {
                                     }
                                 }
                                 if (inizioAbbonMens.isBefore(LocalDate.now())) {
-                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    System.out.println(
+                                            "Hai inserito una data già passata. Perfavore inserisci una data futura");
                                     break;
                                 }
                                 Tessera tesseraUtenteRegistratoFromDb = tesseraDao.findById(
@@ -338,7 +339,8 @@ public class Application {
                                     }
                                 }
                                 if (inizioAbbonSett.isBefore(LocalDate.now())) {
-                                    System.out.println("Hai inserito una data già passata. Perfavore inserisci una data futura");
+                                    System.out.println(
+                                            "Hai inserito una data già passata. Perfavore inserisci una data futura");
                                     break;
                                 }
                                 Tessera tesseraUtenteRegistratoFromDb2 = tesseraDao.findById(
@@ -818,30 +820,36 @@ public class Application {
                                 System.out.println("Stato del mezzo aggiornato in SERVIZIO.");
                                 break;
                             case 11:
-                                // 1. Selezione sicura della Tessera dalla lista
-                                int tesseraScelta = -1;
-                                while (tesseraScelta < 0 || tesseraScelta >= tessera.size()) {
-                                    System.out.println("Scegli una tessera:");
-                                    for (int i = 0; i < tessera.size(); i++) {
-                                        System.out.println((i + 1) + " " + tessera.get(i));
+                                int utenteScelto = -1;
+                                while (utenteScelto < 0 || utenteScelto >= utenti.size()) {
+                                    System.out.println("Scegli un utente:");
+                                    for (int i = 0; i < utenti.size(); i++) {
+                                        System.out.println((i + 1) + " " + utenti.get(i));
                                     }
                                     try {
-                                        tesseraScelta = Integer.parseInt(scanner.nextLine()) - 1;
-                                        if (tesseraScelta < 0 || tesseraScelta >= tessera.size()) {
+                                        utenteScelto = Integer.parseInt(scanner.nextLine()) - 1;
+                                        if (utenteScelto < 0 || utenteScelto >= utenti.size()) {
                                             System.out.println(
-                                                    "Errore: Numero tessera non valido! Scegli un numero tra 1 e " + tessera.size() + ".\n");
+                                                    "Errore: Numero utente non valido! Scegli un numero tra 1 e "
+                                                            + utenti.size() + ".\n");
                                         }
                                     } catch (NumberFormatException e) {
                                         System.out.println("Errore: Inserisci un numero intero valido!\n");
-                                        tesseraScelta = -1;
+                                        utenteScelto = -1;
                                     }
                                 }
+                                Utente utenteSelezionato = utenti.get(utenteScelto);
 
-                                Tessera tesseraSelezionata = tessera.get(tesseraScelta);
+                                Tessera tesseraSelezionata = tesseraDao.findByUserId(utenteSelezionato.getId()
+                                        .toString());
+                                System.out.println(
+                                        "Tessera Utente id: " + tesseraSelezionata.getId() + " Utente id: " + tesseraSelezionata.getUtente()
+                                                .getId());
                                 if (tesseraSelezionata.getDataScadenza()
                                         .isBefore(LocalDate.now())) {
                                     System.out.println(
-                                            "La tessera selezionata è SCADUTA il: " + tesseraSelezionata.getDataScadenza());
+                                            "La tessera selezionata è SCADUTA il: " + tesseraSelezionata
+                                                    .getDataScadenza());
 
                                     int sceltaRinnovo = -1;
                                     while (sceltaRinnovo != 1 && sceltaRinnovo != 2) {
@@ -868,7 +876,8 @@ public class Application {
                                             Tessera tesseraRinnovata = tesseraDao.setRinnovoTessera(
                                                     tesseraFromDb.getId()
                                                             .toString(), LocalDate.now());
-                                            System.out.println("Operazione completata con successo.");
+                                            System.out.println("Operazione completata con successo.\n" +
+                                                    "La Tessera ora scadrà il: " + tesseraRinnovata.getDataScadenza());
                                         } else {
                                             System.out.println("Errore: Impossibile trovare la tessera nel Database.");
                                         }
@@ -878,7 +887,8 @@ public class Application {
 
                                 } else {
                                     System.out.println(
-                                            "La tessera è REGOLARE. Scade il: " + tesseraSelezionata.getDataScadenza());
+                                            "La tessera è REGOLARE. Scade il: " + tesseraSelezionata
+                                                    .getDataScadenza());
                                 }
                                 break;
                             case 12:

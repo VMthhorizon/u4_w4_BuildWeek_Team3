@@ -1,5 +1,6 @@
 package Team3.Dao;
 
+import Team3.entities.StoricoMezzo;
 import Team3.entities.Tessera;
 import Team3.entities.Utente;
 import Team3.exceptions.NotFoundException;
@@ -39,6 +40,12 @@ public class TesseraDao {
         return fromDb;
     }
 
+    public Tessera findByUserId(String userId) {
+        return em.createQuery("SELECT a FROM Tessera a WHERE a.utente.id = :id", Tessera.class)
+                .setParameter("id", UUID.fromString(userId))
+                .getSingleResult();
+    }
+
     public Tessera setRinnovoTessera(String id, LocalDate data) {
         EntityTransaction t = em.getTransaction();
         t.begin();
@@ -52,7 +59,6 @@ public class TesseraDao {
 //                .executeUpdate();
 
         t.commit();
-        System.out.println("La Tessera è stata rinnovata di un anno da oggi");
         return tesseraFromDb;
     }
 

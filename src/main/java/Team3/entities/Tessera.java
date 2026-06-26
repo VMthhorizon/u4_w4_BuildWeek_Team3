@@ -55,6 +55,10 @@ public class Tessera {
         this.dataScadenza = dataScadenza;
     }
 
+    public Utente getUtente() {
+        return utente;
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
