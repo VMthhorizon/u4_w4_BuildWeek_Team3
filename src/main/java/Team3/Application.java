@@ -71,7 +71,7 @@ public class Application {
         // PERCORRENZA
         CreatePercorrenza createPercorrenza = new CreatePercorrenza();
         List<Percorrenza> percorrenza = createPercorrenza.createPercorrenza(percorrenzaDao, tratta, mezzo, faker);
-        
+
         // SCANNER
         System.out.println(" ");
         System.out.println("Login");
@@ -889,9 +889,9 @@ public class Application {
 
                                             UUID idMezzoFromDatabase1 = mezzo.get(mezzoSelezionato1)
                                                     .getId_mezzo();
-                                            if (storicoMezzoDao.findPeriodiManutenzione(idMezzoFromDatabase1)
+                                            if (storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1)
                                                     .isEmpty()) {
-                                                System.out.println("Questo non é mai stato in SERVIZIO");
+                                                System.out.println("Questo mezzo non é mai stato in SERVIZIO");
                                                 break;
                                             }
                                             storicoMezzoDao.findPeriodiServizio(idMezzoFromDatabase1)
@@ -1068,14 +1068,15 @@ public class Application {
 
                                             Long totTempoEffettivo = percorrenzaDao.countTempoEffettivoPercorrenza(
                                                     idMezzoFromDatabase4, idTrattaFromDb);
-                                            
+
                                             if (totTempoEffettivo == null) {
                                                 System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
                                                         " non ha percorrenze registrate sulla tratta " + idTrattaFromDb);
                                             } else {
                                                 System.out.println("Il mezzo con id: " + idMezzoFromDatabase4 +
                                                         " sulla tratta " + idTrattaFromDb +
-                                                        " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " minuti");
+                                                        " ha un TEMPO EFFETTIVO TOTALE di: " + totTempoEffettivo + " " +
+                                                        "minuti");
                                             }
                                             break;
                                         default:
