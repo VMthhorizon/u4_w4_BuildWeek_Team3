@@ -53,10 +53,6 @@ public class TesseraDao {
 
         tesseraFromDb.setDataEmissione(data);
         tesseraFromDb.setDataScadenza(data.plusYears(1));
-//        int righeModificate = em.createQuery("UPDATE Tessera SET dataEmissione = :data WHERE id = :id")
-//                .setParameter("id", UUID.fromString(id))
-//                .setParameter("data", data)
-//                .executeUpdate();
 
         t.commit();
         return tesseraFromDb;
