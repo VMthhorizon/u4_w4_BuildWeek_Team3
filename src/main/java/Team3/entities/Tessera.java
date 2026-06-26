@@ -51,6 +51,14 @@ public class Tessera {
         this.dataEmissione = dataEmissione;
     }
 
+    public void setDataScadenza(LocalDate dataScadenza) {
+        this.dataScadenza = dataScadenza;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
