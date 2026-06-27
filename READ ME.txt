@@ -1,0 +1,19 @@
+## ⚙️ Configuration & Setup
+
+Before running the application, you need to configure your local PostgreSQL database connection. 
+
+Open the `src/main/resources/META-INF/persistence.xml` file and update the following properties with your local database credentials:
+
+```xml
+<properties>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/u4_buildweek"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="1234"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+
+Administrator role Login:
+E-mail: administrator@gmail.com
+Password: 1234
